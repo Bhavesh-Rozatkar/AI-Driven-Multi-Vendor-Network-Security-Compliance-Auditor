@@ -1,0 +1,75 @@
+!
+! Cisco CIS Demo - Compliance PASS
+! Designed for Cisco Packet Tracer IOS routers.
+! This file intentionally includes evidence for a selected set of CIS controls.
+!
+hostname CIS-PASS-R1
+!
+aaa new-model
+aaa authentication login default local
+aaa authentication enable default enable
+aaa accounting commands 15 default start-stop
+aaa accounting connection default start-stop
+aaa accounting exec default start-stop
+aaa accounting network default start-stop
+aaa accounting system default start-stop
+!
+enable secret CiscoPass123!
+service password-encryption
+username admin privilege 1 secret CiscoAdmin123!
+!
+ip domain-name cisdemo.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+!
+line con 0
+ exec-timeout 10 0
+ login authentication default
+ logging synchronous
+!
+line aux 0
+ no exec
+ exec-timeout 10 0
+!
+line vty 0 4
+ login authentication default
+ transport input ssh
+ access-class 10 in
+ exec-timeout 10 0
+!
+access-list 10 permit 192.168.10.0 0.0.0.255
+!
+banner exec #Authorized access only. Activity may be monitored.#
+banner login #Authorized users only. Disconnect immediately if unauthorized.#
+banner motd #WARNING: Authorized access only.#
+!
+no cdp run
+no ip bootp server
+no service dhcp
+service tcp-keepalives-in
+service tcp-keepalives-out
+no service pad
+!
+logging buffered 16384
+logging console critical
+logging host 192.168.10.20
+logging trap informational
+service timestamps debug datetime msec show-timezone
+logging source-interface Loopback0
+login on-failure log
+login on-success log
+!
+ntp authenticate
+ntp authentication-key 1 md5 123456789
+ntp trusted-key 1
+ntp server 192.168.10.30 key 1
+ntp source Loopback0
+!
+interface Loopback0
+ ip address 192.168.10.1 255.255.255.255
+!
+no ip source-route
+!
+end

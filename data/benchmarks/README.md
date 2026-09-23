@@ -1,0 +1,1 @@
+Uploaded benchmark PDFs are stored and extracted here. The prototype does not fabricate CIS pfSense controls. Upload the applicable benchmark PDF, review the extracted controls, and activate the reviewed version.

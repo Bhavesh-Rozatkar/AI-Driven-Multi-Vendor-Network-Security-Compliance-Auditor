@@ -1,0 +1,63 @@
+!
+! Cisco CIS Demo - Compliance FAIL
+! Deliberately contains several benchmark violations.
+!
+hostname CIS-FAIL-R1
+!
+! AAA is intentionally incomplete.
+! aaa new-model is absent.
+!
+enable password Cisco123
+! enable secret is intentionally absent
+! service password-encryption is intentionally absent
+username admin privilege 15 password CiscoAdmin123
+!
+ip domain-name cisdemo.local
+crypto key generate rsa modulus 1024
+ip ssh version 1
+ip ssh time-out 120
+ip ssh authentication-retries 5
+!
+line con 0
+ exec-timeout 20 0
+!
+line aux 0
+ exec-timeout 20 0
+!
+line vty 0 4
+ password VTY123
+ login
+ transport input telnet
+ exec-timeout 20 0
+!
+! No VTY access-class is configured.
+!
+! No approved warning banners are configured.
+!
+cdp run
+ip bootp server
+service dhcp
+no service tcp-keepalives-in
+no service tcp-keepalives-out
+service pad
+!
+logging buffered 512
+logging console debugging
+! No remote logging host
+logging trap debugging
+! Debug timestamps are not configured
+!
+ntp server 192.168.10.30
+! NTP authentication is intentionally absent.
+!
+! No Loopback0 is configured.
+!
+ip source-route
+!
+interface GigabitEthernet0/0
+ ip address 192.168.10.254 255.255.255.0
+ ip proxy-arp
+ no ip verify unicast source reachable-via rx
+ no shutdown
+!
+end

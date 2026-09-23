@@ -1,0 +1,2 @@
+# Optional: only needed if Gemini is added for AI-generated explanations.
+google-genai>=2.22.0

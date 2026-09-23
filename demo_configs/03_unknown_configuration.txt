@@ -1,0 +1,50 @@
+!
+! Cisco CIS Demo - UNKNOWN / UNCOVERED CONFIGURATION
+! Contains normal benchmark-relevant settings plus configuration properties
+! that do not directly map to a specific supplied CIS control.
+!
+hostname CIS-UNKNOWN-R1
+!
+aaa new-model
+aaa authentication login default local
+!
+enable secret CiscoUnknown123!
+service password-encryption
+username admin privilege 1 secret CiscoAdmin123!
+!
+ip domain-name cisdemo.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+!
+line vty 0 4
+ login authentication default
+ transport input ssh
+ exec-timeout 10 0
+!
+banner login #Authorized access only.#
+!
+logging buffered 16384
+logging host 192.168.10.20
+logging trap informational
+login on-failure log
+login on-success log
+!
+interface Loopback0
+ ip address 192.168.10.1 255.255.255.255
+!
+! The following configuration is intentionally outside the supplied
+! benchmark's explicit control list.
+!
+interface GigabitEthernet0/0
+ ip address 192.168.20.1 255.255.255.0
+ ip tcp adjust-mss 1200
+ ip redirects
+ ip unreachables
+ no shutdown
+!
+ip route 10.50.0.0 255.255.0.0 192.168.20.254
+ip tcp synwait-time 30
+!
+end
