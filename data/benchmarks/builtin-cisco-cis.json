@@ -1,0 +1,687 @@
+{
+  "metadata": {
+    "id": "builtin-cisco-cis",
+    "filename": "Cisco CIS Benchmark (bundled)",
+    "status": "ACTIVE",
+    "control_count": 84,
+    "reviewed": true,
+    "vendor": "Cisco",
+    "device_type": "Router / Switch",
+    "framework": "CIS"
+  },
+  "controls": [
+    {
+      "rule_id": "1.1.1",
+      "title": "Enable aaa new-model",
+      "type": "Automated",
+      "audit_command": "show running-config | inc aaa new-model",
+      "expected_configuration": "aaa new-model",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.2",
+      "title": "Enable aaa authentication login",
+      "type": "Automated",
+      "audit_command": "show running-config | incl aaa authentication login",
+      "expected_configuration": "aaa authentication login {default | list-name} ...",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.3",
+      "title": "Enable aaa authentication enable default",
+      "type": "Automated",
+      "audit_command": "show running-config | incl aaa authentication enable",
+      "expected_configuration": "aaa authentication enable default {method1} enable",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.4",
+      "title": "Set login authentication for line VTY",
+      "type": "Automated",
+      "audit_command": "show running-config | sec line | incl login authentication",
+      "expected_configuration": "line vty ... + login authentication default",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.5",
+      "title": "Set login authentication for IP HTTP",
+      "type": "Automated",
+      "audit_command": "show running-config | inc ip http authentication",
+      "expected_configuration": "ip http authentication default",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.6",
+      "title": "AAA accounting for privileged commands",
+      "type": "Automated",
+      "audit_command": "show running-config | incl aaa accounting commands",
+      "expected_configuration": "aaa accounting commands 15 ... start-stop ...",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.7",
+      "title": "AAA accounting connection",
+      "type": "Automated",
+      "audit_command": "show running-config | incl aaa accounting connection",
+      "expected_configuration": "aaa accounting connection ... start-stop ...",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.8",
+      "title": "AAA accounting EXEC",
+      "type": "Automated",
+      "audit_command": "show running-config | incl aaa accounting exec",
+      "expected_configuration": "aaa accounting exec ... start-stop ...",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.9",
+      "title": "AAA accounting network",
+      "type": "Automated",
+      "audit_command": "show running-config | incl aaa accounting network",
+      "expected_configuration": "aaa accounting network ... start-stop ...",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.1.10",
+      "title": "AAA accounting system",
+      "type": "Automated",
+      "audit_command": "show running-config | incl aaa accounting system",
+      "expected_configuration": "aaa accounting system ... start-stop ...",
+      "category": "Management Plane \u2014 AAA"
+    },
+    {
+      "rule_id": "1.2.1",
+      "title": "Set privilege 1 for local users",
+      "type": "Manual",
+      "audit_command": "show running-config | incl privilege",
+      "expected_configuration": "Local users should have privilege 1",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.2",
+      "title": "Set transport input ssh for VTY",
+      "type": "Automated",
+      "audit_command": "show running-config | sec vty",
+      "expected_configuration": "transport input ssh",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.3",
+      "title": "Set no exec for AUX 0",
+      "type": "Automated",
+      "audit_command": "show running-config all | sec aux",
+      "expected_configuration": "line aux 0 \u2192 no exec",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.4",
+      "title": "Create ACL for VTY",
+      "type": "Manual",
+      "audit_command": "show ip access-list <vty_acl_number>",
+      "expected_configuration": "ACL permits only authorized management hosts/networks and denies unauthorized sources",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.5",
+      "title": "Set access-class for VTY",
+      "type": "Automated",
+      "audit_command": "show running-config | sec line vty",
+      "expected_configuration": "access-class <vty_acl> in",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.6",
+      "title": "AUX exec timeout \u226410 min",
+      "type": "Automated",
+      "audit_command": "show running-config all | sec line aux",
+      "expected_configuration": "exec-timeout <10 minutes>",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.7",
+      "title": "Console exec timeout \u226410 min",
+      "type": "Automated",
+      "audit_command": "show running-config all | sec line console",
+      "expected_configuration": "exec-timeout <10 minutes>",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.8",
+      "title": "VTY exec timeout \u226410 min",
+      "type": "Automated",
+      "audit_command": "show running-config all | sec line vty",
+      "expected_configuration": "All VTY lines: exec-timeout \u2264 10 minutes",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.9",
+      "title": "HTTP/HTTPS maximum connections",
+      "type": "Automated",
+      "audit_command": "show run | inc ip http secure-server",
+      "expected_configuration": "ip http max-connections 2 when HTTP/HTTPS is enabled",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.2.10",
+      "title": "IP HTTP exec timeout \u226410 min",
+      "type": "Automated",
+      "audit_command": "show running-config | inc ip http",
+      "expected_configuration": "HTTP management session timeout \u226410 minutes",
+      "category": "Management Plane \u2014 Access"
+    },
+    {
+      "rule_id": "1.3.1",
+      "title": "Set banner-text for banner exec",
+      "type": "Automated",
+      "audit_command": "show running-config | beg banner exec",
+      "expected_configuration": "banner exec c + approved warning text + c",
+      "category": "Management Plane \u2014 Banners"
+    },
+    {
+      "rule_id": "1.3.2",
+      "title": "Set banner-text for banner login",
+      "type": "Automated",
+      "audit_command": "show running-config | beg banner login",
+      "expected_configuration": "banner login c + approved warning text + c",
+      "category": "Management Plane \u2014 Banners"
+    },
+    {
+      "rule_id": "1.3.3",
+      "title": "Set banner-text for banner motd",
+      "type": "Automated",
+      "audit_command": "show running-config | beg banner motd",
+      "expected_configuration": "banner motd c + approved warning text + c",
+      "category": "Management Plane \u2014 Banners"
+    },
+    {
+      "rule_id": "1.3.4",
+      "title": "Set banner-text for webauth banner",
+      "type": "Automated",
+      "audit_command": "show running-config | beg webauth banner",
+      "expected_configuration": "Approved webauth banner text",
+      "category": "Management Plane \u2014 Banners"
+    },
+    {
+      "rule_id": "1.4.1",
+      "title": "Set password for enable secret",
+      "type": "Automated",
+      "audit_command": "show running-config | include enable secret",
+      "expected_configuration": "enable secret <strong-secret>",
+      "category": "Management Plane \u2014 Password"
+    },
+    {
+      "rule_id": "1.4.2",
+      "title": "Enable service password-encryption",
+      "type": "Automated",
+      "audit_command": "show running-config | inc service password-encryption",
+      "expected_configuration": "service password-encryption",
+      "category": "Management Plane \u2014 Password"
+    },
+    {
+      "rule_id": "1.4.3",
+      "title": "Set username secret for all local users",
+      "type": "Automated",
+      "audit_command": "show run | incl username",
+      "expected_configuration": "Every local account uses username <user> secret ...; preferably secret type 9",
+      "category": "Management Plane \u2014 Password"
+    },
+    {
+      "rule_id": "1.5.1",
+      "title": "Disable SNMP when unused",
+      "type": "Manual",
+      "audit_command": "show snmp community",
+      "expected_configuration": "If unused: no snmp-server",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.2",
+      "title": "Remove private community",
+      "type": "Automated",
+      "audit_command": "show snmp community",
+      "expected_configuration": "private must not exist",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.3",
+      "title": "Remove public community",
+      "type": "Automated",
+      "audit_command": "show snmp community",
+      "expected_configuration": "public must not exist",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.4",
+      "title": "No RW SNMP community",
+      "type": "Manual",
+      "audit_command": "show run | incl snmp-server community",
+      "expected_configuration": "No community with RW access",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.5",
+      "title": "ACL for each SNMP community",
+      "type": "Manual",
+      "audit_command": "show run | incl snmp-server community",
+      "expected_configuration": "Community configured with an ACL",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.6",
+      "title": "Create SNMP ACL",
+      "type": "Manual",
+      "audit_command": "show ip access-list <snmp_acl>",
+      "expected_configuration": "ACL permits only authorized SNMP management hosts",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.7",
+      "title": "Configure SNMP host",
+      "type": "Automated",
+      "audit_command": "show run | incl snmp-server",
+      "expected_configuration": "snmp-server host <IP> <community> <notification-type>",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.8",
+      "title": "Enable SNMP traps",
+      "type": "Automated",
+      "audit_command": "show run | incl snmp-server",
+      "expected_configuration": "snmp-server enable traps snmp authentication linkup linkdown coldstart",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.9",
+      "title": "Use priv for SNMPv3 groups",
+      "type": "Automated",
+      "audit_command": "show run | sec snmp-server group",
+      "expected_configuration": "SNMPv3 group uses priv",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "1.5.10",
+      "title": "Minimum AES-128 for SNMPv3",
+      "type": "Manual",
+      "audit_command": "show run | incl snmp-server user",
+      "expected_configuration": "SNMPv3 users use aes 128 or stronger",
+      "category": "Management Plane \u2014 SNMP"
+    },
+    {
+      "rule_id": "2.1.1.1.1",
+      "title": "Set hostname",
+      "type": "Automated",
+      "audit_command": "show run | incl hostname",
+      "expected_configuration": "hostname <router_name>",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.1.1.2",
+      "title": "Set IP domain-name",
+      "type": "Automated",
+      "audit_command": "show run | incl domain-name",
+      "expected_configuration": "ip domain-name <domain>",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.1.1.3",
+      "title": "RSA modulus \u22652048",
+      "type": "Manual",
+      "audit_command": "show crypto key mypubkey rsa",
+      "expected_configuration": "RSA key modulus \u22652048",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.1.1.4",
+      "title": "SSH timeout \u226460 sec",
+      "type": "Automated",
+      "audit_command": "show ip ssh",
+      "expected_configuration": "ip ssh time-out 60 or lower",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.1.1.5",
+      "title": "SSH authentication retries \u22643",
+      "type": "Automated",
+      "audit_command": "show ip ssh",
+      "expected_configuration": "ip ssh authentication-retries 3 or lower",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.1.2",
+      "title": "SSH version 2",
+      "type": "Manual",
+      "audit_command": "show ip ssh",
+      "expected_configuration": "ip ssh version 2",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.2",
+      "title": "Disable CDP globally",
+      "type": "Manual",
+      "audit_command": "show cdp",
+      "expected_configuration": "no cdp run",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.3",
+      "title": "Disable BOOTP server",
+      "type": "Manual",
+      "audit_command": "show running-config | incl ip bootp",
+      "expected_configuration": "no ip bootp server",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.4",
+      "title": "Disable DHCP service",
+      "type": "Automated",
+      "audit_command": "show running-config | incl service dhcp",
+      "expected_configuration": "no service dhcp",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.5",
+      "title": "TCP keepalives inbound",
+      "type": "Automated",
+      "audit_command": "show running-config all | incl tcp-keepalives-in",
+      "expected_configuration": "service tcp-keepalives-in",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.6",
+      "title": "TCP keepalives outbound",
+      "type": "Automated",
+      "audit_command": "show running-config all | incl tcp-keepalives-out",
+      "expected_configuration": "service tcp-keepalives-out",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.1.7",
+      "title": "Disable PAD",
+      "type": "Manual",
+      "audit_command": "show running-config | incl service pad",
+      "expected_configuration": "no service pad",
+      "category": "Control Plane \u2014 SSH & Services"
+    },
+    {
+      "rule_id": "2.2.1",
+      "title": "Enable logging",
+      "type": "Automated",
+      "audit_command": "show logging",
+      "expected_configuration": "logging enable",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.2.2",
+      "title": "Set logging buffered size",
+      "type": "Automated",
+      "audit_command": "show logging",
+      "expected_configuration": "logging buffered <buffer-size>",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.2.3",
+      "title": "Console logging critical",
+      "type": "Automated",
+      "audit_command": "show running-config | incl logging console",
+      "expected_configuration": "logging console critical",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.2.4",
+      "title": "Configure logging host",
+      "type": "Automated",
+      "audit_command": "show logging",
+      "expected_configuration": "logging host <syslog-server-IP>",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.2.5",
+      "title": "Logging trap informational",
+      "type": "Automated",
+      "audit_command": "show logging | incl trap logging",
+      "expected_configuration": "logging trap informational",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.2.6",
+      "title": "Debug timestamps",
+      "type": "Automated",
+      "audit_command": "show run | incl service timestamps",
+      "expected_configuration": "service timestamps debug datetime msec show-timezone",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.2.7",
+      "title": "Logging source interface",
+      "type": "Automated",
+      "audit_command": "show run | incl logging source-interface",
+      "expected_configuration": "logging source-interface <interface>",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.2.8",
+      "title": "Login success/failure logging",
+      "type": "Automated",
+      "audit_command": "show running-config | inc login",
+      "expected_configuration": "login on-failure log + login on-success log",
+      "category": "Control Plane \u2014 Logging"
+    },
+    {
+      "rule_id": "2.3.1.1",
+      "title": "Enable NTP authentication",
+      "type": "Automated",
+      "audit_command": "show run | include ntp",
+      "expected_configuration": "ntp authenticate",
+      "category": "Control Plane \u2014 NTP"
+    },
+    {
+      "rule_id": "2.3.1.2",
+      "title": "Set NTP authentication key",
+      "type": "Automated",
+      "audit_command": "show run | include ntp",
+      "expected_configuration": "ntp authentication-key <key-id> md5 <key>",
+      "category": "Control Plane \u2014 NTP"
+    },
+    {
+      "rule_id": "2.3.1.3",
+      "title": "Set trusted NTP key",
+      "type": "Automated",
+      "audit_command": "show run | include ntp",
+      "expected_configuration": "ntp trusted-key <key-id>",
+      "category": "Control Plane \u2014 NTP"
+    },
+    {
+      "rule_id": "2.3.1.4",
+      "title": "Key for every NTP server",
+      "type": "Manual",
+      "audit_command": "show run | incl ntp server",
+      "expected_configuration": "Each ntp server uses key <key-id>",
+      "category": "Control Plane \u2014 NTP"
+    },
+    {
+      "rule_id": "2.3.2",
+      "title": "Set IP address for NTP server",
+      "type": "Automated",
+      "audit_command": "show run | incl ntp server",
+      "expected_configuration": "ntp server <IP-address> key <key-id>",
+      "category": "Control Plane \u2014 NTP"
+    },
+    {
+      "rule_id": "2.4.1",
+      "title": "Create a single Loopback interface",
+      "type": "Automated",
+      "audit_command": "show ip int brief | incl Loopback",
+      "expected_configuration": "One interface Loopback0 with IP address",
+      "category": "Control Plane \u2014 Loopback"
+    },
+    {
+      "rule_id": "2.4.2",
+      "title": "Set AAA source-interface",
+      "type": "Manual",
+      "audit_command": "show run | incl tacacs source | radius source",
+      "expected_configuration": "AAA uses Loopback as source",
+      "category": "Control Plane \u2014 Loopback"
+    },
+    {
+      "rule_id": "2.4.3",
+      "title": "Set NTP source to Loopback",
+      "type": "Automated",
+      "audit_command": "show run | incl ntp source",
+      "expected_configuration": "ntp source loopback <number>",
+      "category": "Control Plane \u2014 Loopback"
+    },
+    {
+      "rule_id": "2.4.4",
+      "title": "Set TFTP source-interface",
+      "type": "Manual",
+      "audit_command": "show run | incl tftp source-interface",
+      "expected_configuration": "ip tftp source-interface Loopback<number>",
+      "category": "Control Plane \u2014 Loopback"
+    },
+    {
+      "rule_id": "3.1.1",
+      "title": "Disable IP source routing",
+      "type": "Manual",
+      "audit_command": "show run | incl ip source-route",
+      "expected_configuration": "no ip source-route",
+      "category": "Data Plane \u2014 Routing"
+    },
+    {
+      "rule_id": "3.1.2",
+      "title": "Disable proxy ARP",
+      "type": "Manual",
+      "audit_command": "show run | sec interface",
+      "expected_configuration": "Interfaces use no ip proxy-arp",
+      "category": "Data Plane \u2014 Routing"
+    },
+    {
+      "rule_id": "3.1.3",
+      "title": "Disable unused tunnel interfaces",
+      "type": "Manual",
+      "audit_command": "show run | sec interface tunnel",
+      "expected_configuration": "No unnecessary interface Tunnel",
+      "category": "Data Plane \u2014 Routing"
+    },
+    {
+      "rule_id": "3.1.4",
+      "title": "Enable unicast RPF",
+      "type": "Manual",
+      "audit_command": "show run | sec interface",
+      "expected_configuration": "ip verify unicast source reachable-via ...",
+      "category": "Data Plane \u2014 Routing"
+    },
+    {
+      "rule_id": "3.2.1",
+      "title": "Block private source addresses from external networks",
+      "type": "Manual",
+      "audit_command": "show ip access-list <ACL>",
+      "expected_configuration": "Extended ACL denies private/reserved source addresses from external networks",
+      "category": "Data Plane \u2014 Border Filtering"
+    },
+    {
+      "rule_id": "3.2.2",
+      "title": "Apply inbound ACL on external interface",
+      "type": "Manual",
+      "audit_command": "show run | sec interface <external-interface>",
+      "expected_configuration": "ip access-group <ACL> in",
+      "category": "Data Plane \u2014 Border Filtering"
+    },
+    {
+      "rule_id": "3.3.1.1",
+      "title": "Set key chain",
+      "type": "Manual",
+      "audit_command": "show run | sec key chain",
+      "expected_configuration": "key chain <name>",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.2",
+      "title": "Set key",
+      "type": "Manual",
+      "audit_command": "show run | sec key chain",
+      "expected_configuration": "key <key-id>",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.3",
+      "title": "Set key-string",
+      "type": "Manual",
+      "audit_command": "show run | sec key chain",
+      "expected_configuration": "key-string <secret>",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.4",
+      "title": "Configure EIGRP address-family AS",
+      "type": "Manual",
+      "audit_command": "show run | sec router eigrp",
+      "expected_configuration": "address-family ipv4 autonomous-system <AS>",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.5",
+      "title": "Configure af-interface default",
+      "type": "Manual",
+      "audit_command": "show run | sec router eigrp",
+      "expected_configuration": "af-interface default",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.6",
+      "title": "Configure authentication key-chain",
+      "type": "Manual",
+      "audit_command": "show run | sec router eigrp",
+      "expected_configuration": "authentication key-chain <key-chain>",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.7",
+      "title": "Configure authentication mode MD5",
+      "type": "Manual",
+      "audit_command": "show run | sec router eigrp",
+      "expected_configuration": "authentication mode md5",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.8",
+      "title": "Configure EIGRP IP authentication key-chain",
+      "type": "Manual",
+      "audit_command": "show run | sec interface",
+      "expected_configuration": "ip authentication key-chain eigrp <AS> <key-chain>",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.1.9",
+      "title": "Configure EIGRP IP authentication MD5",
+      "type": "Manual",
+      "audit_command": "show run | sec interface",
+      "expected_configuration": "ip authentication mode eigrp <AS> md5",
+      "category": "Data Plane \u2014 EIGRP"
+    },
+    {
+      "rule_id": "3.3.2.1",
+      "title": "OSPF area message-digest authentication",
+      "type": "Manual",
+      "audit_command": "show run | sec router ospf",
+      "expected_configuration": "area <area-id> authentication message-digest",
+      "category": "Data Plane \u2014 OSPF"
+    },
+    {
+      "rule_id": "3.3.2.2",
+      "title": "OSPF interface MD5 key",
+      "type": "Manual",
+      "audit_command": "show run int <interface>",
+      "expected_configuration": "ip ospf message-digest-key <key-id> md5 <key>",
+      "category": "Data Plane \u2014 OSPF"
+    },
+    {
+      "rule_id": "3.3.3.1",
+      "title": "Set neighbor password",
+      "type": "Manual",
+      "audit_command": "show run | sec router bgp",
+      "expected_configuration": "neighbor <neighbor-IP> password <password>",
+      "category": "Data Plane \u2014 BGP"
+    }
+  ],
+  "raw_text": ""
+}

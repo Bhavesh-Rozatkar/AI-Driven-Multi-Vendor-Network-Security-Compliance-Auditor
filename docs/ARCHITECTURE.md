@@ -98,3 +98,15 @@ pfSense
 - Use shared contracts for module boundaries.
 - Fail closed for real remediation when safety or confidence requirements are not met.
 - Preserve evidence and auditability.
+
+## Multi-page UI architecture
+
+The frontend is now split by analyst task rather than rendered as a single index page:
+
+- `login.html` — authentication entry point.
+- `connection.html` — device onboarding and SSH capability validation.
+- `compliance.html` — benchmark ingestion, review, and activation.
+- `assessment.html` — live assessment and findings.
+- `remediation.html` — remediation, safety, execution, verification, audit, and report actions.
+
+The pages share `static/app.css` and `static/app.js`. Browser storage carries prototype workflow state between pages. The backend modules remain independently usable and are not coupled to a particular page.

@@ -5,7 +5,7 @@ def pfsense_normalize(raw):
   root=ET.fromstring(raw)
   def txt(path,d=''):
    n=root.find(path);return (n.text or '').strip() if n is not None and n.text else d
-  r['hostname']=txt('./system/hostname');r['domain']=txt('./system/domain');r['webgui_protocol']=txt('./system/webgui/protocol');r['version']=txt('./version','Unknown')
+  r['hostname']=txt('./system/hostname');r['domain']=txt('./system/domain');r['dns_server']=txt('./system/dnsserver');r['session_timeout']=txt('./system/session_timeout');r['webgui_protocol']=txt('./system/webgui/protocol');r['version']=txt('./version','Unknown')
   for n in root.findall('.//interfaces/*'):
    x={'name':n.tag};x.update({c.tag:(c.text or '').strip() for c in n});r['interfaces'].append(x)
   for path in ('./system/ssh','./system/webgui'):

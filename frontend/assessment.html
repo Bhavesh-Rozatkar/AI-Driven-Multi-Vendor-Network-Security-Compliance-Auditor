@@ -1,0 +1,119 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Assessment · Network Compliance Console</title><link rel="stylesheet" href="/static/app.css"></head>
+<body><div class="page"><header class="topbar">
+  <div class="topbar-left">
+    <button class="menu-btn" aria-label="Menu">☰</button>
+    <div class="brand">
+      <div class="mark">NC</div>
+      <div><h1>Network Compliance Console</h1></div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="top-search"><span>⌕</span><input aria-label="Search" placeholder="Search..." /></div>
+    <button class="icon-btn" aria-label="Notifications">♧<span class="notif-dot"></span></button>
+    <div class="account"><span class="avatar">A</span><b data-user>admin</b><span class="chevron">⌄</span></div>
+    <div class="top-date"><b data-current-date></b><span data-current-time></span></div>
+    <button class="signout-btn" onclick="logout()">Sign out</button>
+  </div>
+</header><div class="shell"><aside class="sidebar">
+  <div class="side-title">WORKSPACE</div>
+  <nav class="nav">
+    <a data-page="dashboard" href="/assessment"><span class="nav-icon">▦</span><span>Dashboard</span></a>
+    <a data-page="connection" href="/connection"><span class="nav-icon">♆</span><span>Connection</span></a>
+    <a data-page="compliance" href="/compliance"><span class="nav-icon">▤</span><span>Compliance</span></a>
+    <a data-page="assessment" href="/assessment"><span class="nav-icon">▥</span><span>Assessment</span></a>
+    <a data-page="remediation" href="/remediation"><span class="nav-icon">⚒</span><span>Remediation</span></a>
+    <a href="/remediation"><span class="nav-icon">▧</span><span>Reports</span></a>
+    <a href="/remediation"><span class="nav-icon">◷</span><span>Audit History</span></a>
+    <a href="/connection"><span class="nav-icon">⚙</span><span>Settings</span></a>
+  </nav>
+</aside><main class="content dashboard-content"><div class="content-head"><div><h2>Security Assessment Dashboard</h2></div><div class="actions"><button onclick="window.location='/compliance'">Manage benchmarks</button></div></div><div class="content-body">
+<section class="panel"><div class="panel-head"><div><h3>Audit Source</h3></div><span id="sourceBadge" class="badge neutral">Not assessed</span></div><div class="panel-body"><div class="source-tabs"><button id="liveTab" class="source-tab active" onclick="setSource('live')">Live device</button><button id="fileTab" class="source-tab" onclick="setSource('file')">Configuration file</button></div>
+<div id="liveSource"><div class="field-grid"><div class="field"><label>Device host</label><input id="host" disabled></div><div class="field"><label>SSH port</label><input id="port" disabled></div><div class="field full"><label>Active benchmark</label><select id="benchmark"></select></div></div><div id="contextMsg" style="margin-top:9px"></div><div class="actions" style="margin-top:10px"><button id="liveRun" onclick="runLiveAssessment()" class="primary">Run live assessment</button></div></div>
+<div id="fileSource" style="display:none"><div class="field-grid"><div class="field full"><label>Configuration file</label><div class="upload-drop"><div>Select a Cisco IOS/IOS-XE configuration file.</div><input id="configFile" type="file" accept=".txt,.cfg,.conf,text/plain" onchange="showFileName()"><div id="fileName" class="file-name small" style="margin-top:7px">No file selected</div></div></div><div class="field"><label>Vendor</label><select id="fileVendor"><option value="auto">Auto-detect</option><option value="cisco">Cisco IOS / IOS-XE</option></select></div><div class="field"><label>Benchmark</label><select id="fileBenchmark"></select></div></div><div id="fileMsg" style="margin-top:9px"></div><div class="actions" style="margin-top:10px"><button id="fileRun" onclick="runFileAssessment()" class="primary">Audit configuration file</button></div></div>
+</div></section>
+<div id="processing" class="processing-strip"><span class="spinner"></span><span id="processingText">Processing configuration…</span></div>
+<div id="metrics" style="margin-top:10px"></div><div id="insights" style="margin-top:10px"></div><div id="aiReview" style="margin-top:10px"></div><section class="panel"><div class="panel-head"><div><h3>Compliance Findings</h3></div><span id="runStatus" class="badge neutral">Not assessed</span></div><div class="panel-body"><div id="findings"><div class="empty">Choose an assessment source to begin.</div></div></div></section></div></main></div></div><script src="/static/app.js"></script><script>
+if(requireLogin())init();let source='live';
+async function init(){const d=getDevice();$('host').value=d.host||'Not configured';$('port').value=d.port||22;await loadBenchmarks();await loadCiscoBenchmark();}
+async function loadBenchmarks(){try{const d=await api('/benchmarks');const active=(d.benchmarks||[]).filter(x=>x.status==='ACTIVE');$('benchmark').innerHTML=active.filter(x=>String(x.id).includes('pfsense')||String(x.filename||'').toLowerCase().includes('pfsense')).map(x=>`<option value="${esc(x.id)}" ${x.id===getBenchmark()?'selected':''}>${esc(x.filename||x.id)} · ${esc(x.control_count||0)} controls</option>`).join('')||'<option value="">No active pfSense benchmark</option>';const pf=active.find(x=>x.id==='builtin-pfsense-cis');if(pf&&!getBenchmark())saveBenchmark(pf.id);}catch(e){$('contextMsg').innerHTML='<div class="notice danger">'+esc(e.message)+'</div>'}}
+async function loadCiscoBenchmark(){try{const d=await api('/benchmarks');const b=(d.benchmarks||[]).find(x=>x.id==='builtin-cisco-cis');$('fileBenchmark').innerHTML=b?`<option value="${esc(b.id)}">${esc(b.filename)} · ${esc(b.control_count||0)} controls</option>`:'<option value="">No active Cisco benchmark</option>';}catch(e){$('fileMsg').innerHTML='<div class="notice danger">'+esc(e.message)+'</div>'}}
+function setSource(v){source=v;$('liveTab').classList.toggle('active',v==='live');$('fileTab').classList.toggle('active',v==='file');$('liveSource').style.display=v==='live'?'block':'none';$('fileSource').style.display=v==='file'?'block':'none';$('sourceBadge').textContent=v==='live'?'Live device':'Configuration file';$('sourceBadge').className='badge neutral';}
+function showFileName(){const f=$('configFile').files[0];$('fileName').textContent=f?`${f.name} · ${(f.size/1024).toFixed(1)} KB`:'No file selected';}
+function processing(on,text){$('processing').classList.toggle('visible',on);if(text)$('processingText').textContent=text;}
+async function runLiveAssessment(){const btn=$('liveRun'),d=getDevice(),bid=$('benchmark').value;saveBenchmark(bid);if(!d.host||!d.username||!d.password){$('contextMsg').innerHTML='<div class="notice warning">Configure the pfSense target on the Connection page first.</div>';return}if(!bid){$('contextMsg').innerHTML='<div class="notice warning">Activate a benchmark on the Compliance page first.</div>';return}setBusy(btn,true,'Assessing…');$('runStatus').textContent='RUNNING';processing(true,'Connecting, collecting configuration and evaluating controls…');$('findings').innerHTML='<div class="empty">Collecting live configuration and evaluating the active benchmark…</div>';const loader=showLoading('Running live assessment',['Checking device capabilities','Collecting configuration','Normalizing security state','Evaluating benchmark controls']);try{const r=await api('/audit/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...d,benchmark_id:bid})});loader.next(3);saveResult(r.result);const c=r.result.compliance||{};$('runStatus').textContent='COMPLETE';$('sourceBadge').textContent='Live device';$('contextMsg').innerHTML=`<div class="notice success">Capability check passed. Assessment completed against ${esc(bid)}.</div>`;renderMetrics(c);renderInsights(r.result);renderFindings(c,true)}catch(e){$('runStatus').textContent='FAILED';$('findings').innerHTML='<div class="notice danger">'+esc(e.message)+'</div>'}finally{loader.hide();processing(false);setBusy(btn,false)}}
+async function runFileAssessment(){const btn=$('fileRun'),f=$('configFile').files[0],bid=$('fileBenchmark').value,vendor=$('fileVendor').value;if(!f){$('fileMsg').innerHTML='<div class="notice warning">Choose a configuration file first.</div>';return}if(!bid){$('fileMsg').innerHTML='<div class="notice warning">No active Cisco benchmark is available.</div>';return}if(f.size>2*1024*1024){$('fileMsg').innerHTML='<div class="notice warning">Configuration file is larger than 2 MB.</div>';return}setBusy(btn,true,'Auditing…');$('runStatus').textContent='RUNNING';processing(true,'Parsing configuration and evaluating benchmark controls…');$('findings').innerHTML='<div class="empty">Reading configuration file and mapping controls…</div>';const loader=showLoading('Processing configuration file',['Reading configuration','Detecting vendor and platform','Normalizing configuration','Evaluating benchmark controls']);try{const fd=new FormData();fd.append('file',f);fd.append('vendor',vendor);fd.append('benchmark_id',bid);const r=await api('/audit/config',{method:'POST',body:fd,timeoutMs:20000});loader.next(3);saveResult(r.result);saveBenchmark(bid);const c=r.result.compliance||{};$('runStatus').textContent='COMPLETE';$('sourceBadge').textContent='Configuration file';$('fileMsg').innerHTML=`<div class="notice success">${esc(r.result.source_filename||f.name)} analyzed successfully. ${esc(r.result.semantic?.vendor_detection?.vendor||'Vendor')} configuration mapped to the benchmark.</div>`;renderMetrics(c);renderInsights(r.result);renderFindings(c,false);runAIReview(r.result)}catch(e){$('runStatus').textContent='FAILED';$('findings').innerHTML='<div class="notice danger">'+esc(e.message)+'</div>'}finally{loader.hide();processing(false);setBusy(btn,false)}}
+function renderMetrics(c){
+ const total=Number(c.total_controls)||0,passed=Number(c.passed)||0,failed=Number(c.failed)||0,uncertain=Number(c.uncertain)||0;
+ const score=total?Math.round(passed*100/total):0;
+ const results=Array.isArray(c.results)?c.results:[];
+ const failedRows=results.filter(x=>String(x.status||'').toUpperCase()==='FAIL').slice(0,5);
+ const high=results.filter(x=>/critical|high/i.test(String(x.severity||x.rule_level||x.level||''))).length;
+ const medium=results.filter(x=>/medium/i.test(String(x.severity||x.rule_level||x.level||''))).length;
+ const low=Math.max(0,results.length-high-medium);
+ const counts={"Access Control":0,"Authentication":0,"Logging & Monitoring":0,"System Hardening":0,"Network Services":0,"Other":0};
+ results.forEach(x=>{
+   const t=String(x.title||'').toLowerCase();
+   if(/access|ssh|firewall rule|network access/.test(t)) counts['Access Control']++;
+   else if(/auth|password|account|login|credential/.test(t)) counts['Authentication']++;
+   else if(/log|audit|monitor|event/.test(t)) counts['Logging & Monitoring']++;
+   else if(/hardening|service|system|default/.test(t)) counts['System Hardening']++;
+   else if(/dns|http|https|ntp|network|interface/.test(t)) counts['Network Services']++;
+   else counts.Other++;
+ });
+ const categories=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+ const maxCat=Math.max(...categories.map(x=>x[1]),1);
+ const passDeg=total?passed/total*360:0, failDeg=total?(passed+failed)/total*360:0;
+ const device=(getResult()||{}).device||getDevice()||{};
+ const now=new Date();
+ const stamp=now.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})+' '+now.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+ const rows=failedRows.length?failedRows.map(x=>`<tr><td><b>${esc(x.rule_id||'—')}</b></td><td>${esc(x.title||'')}</td><td><span class="status-pill ${String(x.status).toLowerCase()}">${esc(x.status||'FAIL')}</span></td><td><span class="severity-pill ${String(x.severity||x.rule_level||'medium').toLowerCase()}">${esc(x.severity||x.rule_level||'Medium')}</span></td></tr>`).join(''):'<tr><td colspan="4" class="empty-cell">No failed controls in this assessment.</td></tr>';
+ const catRows=categories.map(([label,n],i)=>`<div class="cat-row"><span>${esc(label)}</span><div class="cat-track"><div class="cat-fill cat-${i%5}" style="width:${Math.max(5,Math.round(n/maxCat*100))}%"></div></div><b>${n}</b></div>`).join('');
+ $('metrics').innerHTML=`
+ <div class="kpi-row">
+   <section class="kpi-card"><div class="kpi-icon success">✓</div><div><div class="kpi-label">Total Controls</div><div class="kpi-value">${total}</div></div><span class="widget-menu">⋮</span></section>
+   <section class="kpi-card"><div class="kpi-icon success soft">✓</div><div><div class="kpi-label">Passed</div><div class="kpi-value">${passed}</div></div><span class="widget-menu">⋮</span></section>
+   <section class="kpi-card"><div class="kpi-icon danger">!</div><div><div class="kpi-label">Failed</div><div class="kpi-value">${failed}</div></div><span class="widget-menu">⋮</span></section>
+   <section class="kpi-card"><div class="kpi-icon warn">?</div><div><div class="kpi-label">Uncertain</div><div class="kpi-value">${uncertain}</div></div><span class="widget-menu">⋮</span></section>
+ </div>
+ <div class="dash-row row-three">
+   <section class="dash-card score-card"><div class="widget-head"><h3>Compliance Score</h3><span>⚙ ⋮</span></div><div class="score-body"><div class="score-gauge" style="--score:${score*1.8}deg"><div><strong>${score}%</strong><span>${passed} / ${total} controls passed</span></div></div></div></section>
+   <section class="dash-card distribution-card"><div class="widget-head"><h3>Assessment Result Distribution</h3><span>⚙ ⋮</span></div><div class="distribution-body"><div class="donut" style="background:conic-gradient(#45c69a 0 ${passDeg}deg,#ef5d69 ${passDeg}deg ${failDeg}deg,#ffc84a ${failDeg}deg 360deg)"><div></div></div><div class="dist-legend"><div><i class="dot-pass"></i><span>Passed</span><b>${passed}</b></div><div><i class="dot-fail"></i><span>Failed</span><b>${failed}</b></div><div><i class="dot-uncertain"></i><span>Uncertain</span><b>${uncertain}</b></div></div></div></section>
+   <section class="dash-card category-card"><div class="widget-head"><h3>Controls by Category</h3><span>⚙ ⋮</span></div><div class="category-body">${catRows}</div></section>
+ </div>
+ <div class="dash-row row-main">
+   <section class="dash-card findings-card"><div class="widget-head"><h3><span class="heading-alert">!</span> Recent Findings</h3><div class="widget-links">View all › &nbsp; ⚙ ⋮</div></div><div class="table-scroll"><table class="dashboard-table"><thead><tr><th>Control ID</th><th>Rule Description</th><th>Status</th><th>Severity</th></tr></thead><tbody>${rows}</tbody></table></div></section>
+   <div class="right-stack">
+     <section class="dash-card device-card"><div class="widget-head"><h3>▣ Device Status</h3><span>⚙ ⋮</span></div><div class="device-body"><div class="device-details"><div><span>Host</span><b>${esc(device.host||'—')}</b></div><div><span>Platform</span><b>${esc(device.platform||device.vendor||'pfSense Firewall')}</b></div><div><span>Last Assessed</span><b>${stamp}</b></div></div><div class="device-state"><div><i></i><strong>Connected</strong></div><button onclick="location.href='/connection'">View Details</button></div></div></section>
+     <section class="dash-card risk-card"><div class="widget-head"><h3>⬟ Risk Summary</h3><span>⚙ ⋮</span></div><div class="risk-grid"><div><strong>${high}</strong><span>High Risk</span></div><div><strong>${medium}</strong><span>Medium Risk</span></div><div><strong>${low}</strong><span>Low Risk</span></div></div></section>
+   </div>
+ </div>`;
+}
+
+function renderInsights(r){
+ const s=r.semantic||{},v=s.vendor_detection||r.vendor_detection||{},risk=r.risk||{};const top=(risk.items||[]).slice(0,3);
+ $('insights').innerHTML=`<div class="grid2" style="margin-top:10px"><section class="panel"><div class="panel-head"><div><h3>Configuration Analysis</h3></div><span class="badge ${s.status==='AI_ENRICHED'?'PASS':'neutral'}">${esc(s.status||'READY')}</span></div><div class="panel-body"><div class="kv"><div class="k">Vendor</div><div class="v">${esc(v.vendor||'Unknown')}</div><div class="k">Platform</div><div class="v">${esc(v.os||'Unknown')}</div><div class="k">Confidence</div><div class="v">${Math.round(Number(v.confidence||0)*100)}%</div><div class="k">Method</div><div class="v">${esc(v.method||s.method||'deterministic')}</div><div class="k">Source</div><div class="v">${esc(r.source==='configuration_file'?'Configuration file':'Live device')}</div></div></div></section><section class="panel"><div class="panel-head"><div><h3>Risk Indicators</h3></div><span class="badge ${risk.overall_risk_score>0?'FAIL':'PASS'}">${esc(risk.overall_risk_score||0)} risk</span></div><div class="panel-body">${top.length?top.map(x=>`<div class="notice ${x.severity==='Critical'||x.severity==='High'?'danger':'warning'}"><b>${esc(x.configuration_item)}</b> · ${esc(x.severity)}<br><span class="small">${esc(x.reason)}</span></div>`).join(''):'<div class="small muted">No additional risk signals detected.</div>'}</div></section></div>`;
+}
+async function runAIReview(result){
+ const uncertain=(result?.compliance?.results||[]).filter(x=>String(x.status).toUpperCase()==='UNCERTAIN');
+ if(!uncertain.length){$('aiReview').innerHTML='';return;}
+ $('aiReview').innerHTML=`<section class="panel ai-review-panel"><div class="panel-head"><div><h3>AI Interpretation Review</h3></div><span class="badge neutral">7 controls</span></div><div class="panel-body"><div class="notice info"><b>Semantic review required.</b> The AI explains the uncertain controls; the administrator decides whether each interpretation is verified. AI interpretation never changes compliance status by itself.</div><div id="aiReviewList"><div class="empty">Generating interpretations…</div></div></div></section>`;
+ try{
+  const r=await api('/audit/ai-review',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({raw_configuration:result.raw_configuration,uncertain_controls:uncertain}),timeoutMs:12000});
+  result.ai_review=r.review||{};saveResult(result);renderAIReviewItems(result);
+ }catch(e){
+  $('aiReviewList').innerHTML=`<div class="notice warning">AI interpretation could not be reached. The seven controls remain UNCERTAIN and require administrator review.</div>`;
+ }
+}
+function renderAIReviewItems(result){
+ const review=result.ai_review||{},items=Array.isArray(review.items)?review.items:[];
+ const saved=JSON.parse(localStorage.getItem('adminInterpretationReviews')||'{}');
+ $('aiReviewList').innerHTML=`<div class="ai-review-meta"><span class="badge ${review.status==='AI_REVIEW_READY'?'PASS':'neutral'}">${esc(review.status||'REVIEW')}</span><span>${esc(review.method||'AI semantic review')}</span></div>`+
+ (items.length?items.map((x,i)=>{const v=saved[x.rule_id]||{};return `<article class="ai-review-card" data-review-id="${esc(x.rule_id)}"><div class="ai-review-head"><div><b>${esc(x.rule_id)} · ${esc(x.title)}</b><span class="small">AI confidence ${Math.round(Number(x.confidence||0)*100)}%</span></div><span class="badge UNCERTAIN">UNCERTAIN</span></div><div class="ai-review-grid"><div><span class="review-label">AI interpretation</span><p>${esc(x.interpretation||'No interpretation returned.')}</p></div><div><span class="review-label">Evidence</span><p>${esc(x.evidence||'No additional evidence cited.')}</p></div><div><span class="review-label">Recommended verification</span><p>${esc(x.recommendation||'Administrator verification required.')}</p></div></div><div class="admin-review-box"><div class="review-label">Administrator decision</div><div class="admin-review-actions"><select id="decision-${esc(x.rule_id).replaceAll('.','-')}"><option value="VERIFIED" ${v.decision==='VERIFIED'?'selected':''}>Verify interpretation</option><option value="REJECTED" ${v.decision==='REJECTED'?'selected':''}>Reject interpretation</option></select><input id="explanation-${esc(x.rule_id).replaceAll('.','-')}" value="${esc(v.admin_explanation||'')}" placeholder="Administrator explanation" maxlength="2000"><button class="primary" onclick="saveInterpretation('${esc(x.rule_id)}')">Save review</button></div>${v.reviewed_at?`<div class="small success-text">Reviewed by ${esc(v.reviewed_by||'admin')} · ${esc(v.reviewed_at)}</div>`:''}</div></article>`}).join(''):'<div class="empty">No AI interpretations returned.</div>');
+}
+async function saveInterpretation(ruleId){
+ const key=String(ruleId).replaceAll('.','-');const decision=$('decision-'+key)?.value;const explanation=$('explanation-'+key)?.value.trim()||'';
+ try{const r=await api('/audit/verify-interpretation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({rule_id:ruleId,decision,admin_explanation:explanation})});const saved=JSON.parse(localStorage.getItem('adminInterpretationReviews')||'{}');saved[ruleId]=r.review;localStorage.setItem('adminInterpretationReviews',JSON.stringify(saved));const result=getResult();if(result){result.admin_reviews=saved;saveResult(result);renderAIReviewItems(result)} }catch(e){alert(e.message)}
+}
+function renderFindings(c,allowRemediation){const rows=(c.results||[]).map((x,i)=>{const status=String(x.status||'UNCERTAIN').toUpperCase();const action=status==='FAIL'&&allowRemediation?`<button onclick="openRemediation(${i})">Open remediation</button>`:status==='UNCERTAIN'?`<button onclick="document.querySelector('[data-review-id=\\"${esc(x.rule_id)}\\"]').scrollIntoView({behavior:'smooth',block:'center'})">Review interpretation</button>`:'—';return `<tr><td><b>${esc(x.rule_id)}</b></td><td>${esc(x.title)}</td><td><span class="badge ${esc(status)}">${esc(status)}</span></td><td>${esc(x.reason||'')}</td><td><span class="small">${esc(x.evidence||'')}</span></td><td>${action}</td></tr>`}).join('');$('findings').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Control</th><th>Requirement</th><th>Status</th><th>Reason</th><th>Evidence</th><th>Action</th></tr></thead><tbody>${rows||'<tr><td colspan="6">No results.</td></tr>'}</tbody></table></div>`}
+function openRemediation(i){const r=getResult();if(!r||r.source==='configuration_file')return;const f={...r.compliance.results[i],benchmark_id:r.benchmark_id||getBenchmark()};localStorage.setItem('selectedFinding',JSON.stringify(f));localStorage.setItem('activeBenchmark',r.benchmark_id||getBenchmark());location.href='/remediation'}
+</script></body></html>

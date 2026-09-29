@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="none">
+  <defs>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.25" fill="#7b8fa3" opacity="0.72"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.82" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="waveMask">
+      <path d="M-40 180 C220 60 370 80 560 185 S910 340 1120 215 S1390 45 1640 145 L1640 280 C1390 180 1240 300 1120 330 S790 390 560 275 S210 150 -40 300 Z" fill="url(#fade)"/>
+      <path d="M-40 610 C200 500 390 480 600 590 S960 760 1160 635 S1410 490 1640 575 L1640 710 C1390 635 1260 760 1140 775 S820 810 600 700 S210 600 -40 735 Z" fill="url(#fade)"/>
+    </mask>
+  </defs>
+  <g mask="url(#waveMask)">
+    <rect width="1600" height="900" fill="url(#dots)"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1">
+    <path d="M0 210 C220 95 380 105 570 205 S900 350 1110 230 S1390 90 1600 155"/>
+    <path d="M0 635 C210 530 390 500 610 610 S950 770 1160 650 S1400 520 1600 590"/>
+  </g>
+</svg>

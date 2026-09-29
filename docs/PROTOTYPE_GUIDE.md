@@ -76,7 +76,7 @@ A developer can work on one module without needing to understand the internals o
 
 ### Important truth about the current build
 
-The project does **not invent CIS controls**. The benchmark PDF is the source input. Controls should be reviewed before activation. A control without enough deterministic evidence remains `UNCERTAIN` rather than being guessed.
+The project does **not invent CIS controls**. The benchmark PDF is the source input. For the supplied CIS pfSense v1.1.0 document, the parser identifies 33 recommendations and preserves their CIS assessment status; the supplied recommendations are marked Manual in the benchmark. Manual controls without an explicitly reviewed deterministic check remain `UNCERTAIN` rather than being guessed.
 
 The live pfSense VM is external to this development environment. The SSH adapter is implemented, but live connection, backup, and real command execution must be tested against the user's actual VM before production-like use.
 
@@ -94,7 +94,7 @@ The important architectural idea is that **device-specific behavior is isolated 
 
 ### Stage A — Benchmark onboarding
 
-The administrator uploads a benchmark PDF. The server extracts text from the document and performs conservative control extraction. If an AI provider is configured, AI can assist with structuring the extracted controls. The result is explicitly marked for review.
+The administrator uploads a benchmark PDF. For CIS-style PDFs, the server first performs page-aware structural extraction of recommendation IDs, titles, assessment status, profile, description, rationale, audit procedure, remediation procedure, defaults, references, and source pages. AI is optional and is used only to enrich already identified controls; it cannot create, merge, rename, or activate controls. The result is explicitly marked for review.
 
 The administrator can review, edit, select, and activate controls. Multiple benchmark versions can remain stored simultaneously. The activated benchmark is then referenced by its benchmark ID when an assessment is started.
 
@@ -403,3 +403,9 @@ Think of the application as five big questions:
 ```
 
 Everything in the repository exists to answer one of those questions without mixing responsibilities between modules.
+
+## UI Design System
+
+The prototype frontend uses the provided reference HTML as the visual baseline. The UI uses an Inter-style system font stack, a dark technical console, and a subtle custom white dotted-wave technology background. The wave artwork is stored locally at `frontend/static/tech-waves.svg`; it does not depend on an external image URL or the watermarked reference image.
+
+All UI components use square corners (`border-radius: 0`) to keep the interface visually consistent with the requested technical style. Do not reintroduce rounded cards, buttons, tabs, badges, inputs, or panels when extending the UI.

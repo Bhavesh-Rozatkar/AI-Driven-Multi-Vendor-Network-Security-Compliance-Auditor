@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "id": "builtin-pfsense-cis",
+    "filename": "CIS pfSense Firewall Benchmark v1.1.0",
+    "status": "ACTIVE",
+    "uploaded_at": "",
+    "pages": 92,
+    "control_count": 5,
+    "framework": "CIS",
+    "vendor": "pfSense"
+  },
+  "controls": [
+    {
+      "rule_id": "1.4",
+      "title": "Ensure Hostname is set",
+      "assessment_status": "AUTOMATED",
+      "required_text": "<hostname>hexaminds-fw</hostname>",
+      "remediation": "Set a non-empty hostname.",
+      "fix_commands": []
+    },
+    {
+      "rule_id": "1.5",
+      "title": "Ensure DNS server is configured",
+      "assessment_status": "AUTOMATED",
+      "required_text": "<dnsserver>1.1.1.1</dnsserver>",
+      "remediation": "Configure an approved DNS server.",
+      "fix_commands": []
+    },
+    {
+      "rule_id": "1.8",
+      "title": "Ensure Web Management is set to use HTTPS",
+      "assessment_status": "AUTOMATED",
+      "required_text": "<protocol>https</protocol>",
+      "remediation": "Enable HTTPS for the pfSense web management interface.",
+      "fix_commands": [
+        "configctl system webgui enable-https"
+      ]
+    },
+    {
+      "rule_id": "2.1",
+      "title": "Ensure Sessions Timeout is set to less than or equal to 10 Minutes",
+      "assessment_status": "AUTOMATED",
+      "check_pattern": "<session_timeout>\\s*(?:[0-9]|10)\\s*</session_timeout>",
+      "remediation": "Set the management session timeout to 10 minutes or less.",
+      "fix_commands": []
+    },
+    {
+      "rule_id": "2.2",
+      "title": "Ensure SSH management is enabled for secure administration",
+      "assessment_status": "AUTOMATED",
+      "required_text": "<enable>1</enable>",
+      "remediation": "Enable SSH only when required for secure administration.",
+      "fix_commands": []
+    }
+  ],
+  "raw_text": ""
+}

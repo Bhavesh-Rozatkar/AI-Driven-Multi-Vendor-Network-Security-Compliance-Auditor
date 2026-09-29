@@ -9,11 +9,13 @@ The benchmark system lets administrators upload and maintain multiple benchmark 
 ```text
 PDF Upload
    ↓
-Text Extraction
+Page-aware PDF Text Extraction
    ↓
-Heuristic Control Extraction
+CIS Recommendation Boundary Detection
    ↓
-Optional AI Structuring
+Structured Control Extraction
+   ↓
+Optional AI Enrichment
    ↓
 Review Required
    ↓
@@ -26,7 +28,7 @@ Available for Assessment
 
 ## Why review is mandatory
 
-A PDF parser or AI model can misunderstand formatting, headings, tables, or control language. The system therefore treats extracted controls as candidate data until the administrator reviews and activates them.
+A PDF parser or AI model can misunderstand formatting, headings, tables, or control language. The CIS extractor therefore preserves the document-defined control boundaries and assessment status first, then treats the extracted records as candidate policy until the administrator reviews and activates them. AI enrichment cannot change control IDs or boundaries.
 
 ## Multiple versions
 
@@ -45,3 +47,7 @@ Controls that lack sufficient deterministic evidence should remain `UNCERTAIN` r
 ## Extending the extractor
 
 If future benchmark formats need table extraction, page-aware parsing, OCR, or richer control metadata, add those capabilities behind the benchmark extraction interface rather than coupling them to the compliance engine.
+
+## Current CIS pfSense benchmark behavior
+
+The supplied `CIS pfSense Firewall Benchmark v1.1.0` is 92 pages and contains 33 recommendations. The benchmark labels these recommendations as Manual. The importer preserves that status. It does not invent deterministic checks for Manual recommendations. A human can explicitly add a reviewed `check_pattern`, `required_text`, or `forbidden_text` when there is a safe machine-checkable representation; otherwise the compliance engine reports the control as `UNCERTAIN`.

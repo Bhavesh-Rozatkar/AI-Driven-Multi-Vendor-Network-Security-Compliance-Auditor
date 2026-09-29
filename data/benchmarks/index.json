@@ -1,875 +1,1773 @@
 [
   {
-    "id": "bench-b3b4ffbd80ea",
-    "filename": "CIS_pfSense_Firewall_Benchmark_v1.1.0.pdf",
-    "path": "D:\\Notes\\tracerix\\msc\\sih\\prototype_modular_V1\\demo_fast\\data\\benchmark_uploads\\bench-b3b4ffbd80ea.pdf",
-    "sha256": "49d1f37fca09ee6cb1558d0ac073a69284930e14d6d6b784659f13ae570a747e",
+    "id": "builtin-pfsense-cis",
+    "filename": "CIS pfSense Firewall Benchmark v1.1.0",
+    "status": "ACTIVE",
+    "uploaded_at": "",
     "pages": 92,
-    "status": "PENDING_REVIEW",
-    "uploaded_at": "2026-09-23T13:32:17.409459+00:00",
-    "controls": [],
-    "metadata": {
-      "raw_text_length": 83052
-    }
+    "control_count": 5,
+    "framework": "CIS",
+    "vendor": "pfSense"
   },
   {
-    "id": "bench-ec2ec4f6894f",
+    "id": "builtin-cisco-cis",
+    "filename": "Cisco CIS Benchmark (bundled)",
+    "status": "ACTIVE",
+    "control_count": 84,
+    "reviewed": true,
+    "vendor": "Cisco",
+    "device_type": "Router / Switch",
+    "framework": "CIS"
+  },
+  {
+    "id": "bench-e8006c714ee5",
     "filename": "CIS_pfSense_Firewall_Benchmark_v1.1.0.pdf",
-    "path": "D:\\Notes\\tracerix\\msc\\sih\\prototype_modular_V1\\demo_fast\\data\\benchmark_uploads\\bench-ec2ec4f6894f.pdf",
+    "path": "D:\\prototype\\HexaMinds_SIH2026_Dashboard_UI_v11\\data\\benchmark_uploads\\bench-e8006c714ee5.pdf",
     "sha256": "49d1f37fca09ee6cb1558d0ac073a69284930e14d6d6b784659f13ae570a747e",
     "pages": 92,
     "status": "ACTIVE",
-    "uploaded_at": "2026-09-23T13:32:24.612220+00:00",
+    "uploaded_at": "2026-09-28T23:37:02.948363+00:00",
     "controls": [
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the CLI: Run the following command and verify that output should contain 'Banner' parameter: grep \"^Banner\" /etc/ssh/sshd_config",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "No banner is shown by default.",
+        "description": "Before authentication is allowed, a file containing its contents must be provided to the remote user, as specified by the Banner argument.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Banners are used to inform users who are connected of the specific site's connection rules. The prosecution of computer system intruders may be aided by the display of a warning message prior to the normal user login.",
+        "references": [],
+        "remediation": "In the CLI: Edit the /etc/ssh/sshd_config file to set the parameter as follows: Banner /etc/issue.net",
+        "required_text": "",
         "rule_id": "1.1",
-        "severity": "",
-        "source_excerpt": "1.1 Ensure SSH warning banner is configured (Manual) ............................................................................ 12 1.2 Ensure AutoConfigBackup is enable (Manual) ...................................................................................... 14 1.3 Ensure 'Message Of The Day (MOTD)' is set (Manual) ........................................................................ 16 1.4 Ensure Hostname is set (Manual) ......................................................................................................... 18 1.5 Ensure DNS server is configured (Manual) ........................................................................................... 20",
-        "title": "Ensure SSH warning banner is configured (Manual) ............................................................................ 12",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.1 Ensure SSH warning banner is configured (Manual) Profile Applicability: \u2022 Level 1 Description: Before authentication is allowed, a file containing its contents must be provided to the remote user, as specified by the Banner argument. Rationale: Banners are used to inform users who are connected of the specific site's connection rules. The prosecution of computer system intruders may be aided by the display of a warning message prior to the normal user login. Audit:",
+        "source_pages": [
+          13
+        ],
+        "title": "Ensure SSH warning banner is configured"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI. - Navigate to Services > Auto Config Backup.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Disabled",
+        "description": "Making a backup before and after each large change or series of changes, as well as after each little change, is the recommended practice. A first backup is typically prepared in case the change being done has unfavorable repercussions.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "An after-the-fact backup is taken after evaluating the change and ensuring it had the intended outcome. Periodic backups are also helpful, regardless of changes, especially in cases where a manual backup may be missed.",
+        "references": [
+          "1. https://docs.netgate.com/pfsense/en/latest/backup/autoconfigbackup.html"
+        ],
+        "remediation": "In the GUI. - Navigate to Services > Auto Config Backup. - CLIck the Setting at the top. - Check on the Enable ACB. - CLIck Save",
+        "required_text": "",
         "rule_id": "1.2",
-        "severity": "",
-        "source_excerpt": "1.2 Ensure AutoConfigBackup is enable (Manual) ...................................................................................... 14 1.3 Ensure 'Message Of The Day (MOTD)' is set (Manual) ........................................................................ 16 1.4 Ensure Hostname is set (Manual) ......................................................................................................... 18 1.5 Ensure DNS server is configured (Manual) ........................................................................................... 20 1.6 Ensure IPv6 is disabled if not used (Manual) ........................................................................................ 21",
-        "title": "Ensure AutoConfigBackup is enable (Manual) ...................................................................................... 14",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.2 Ensure AutoConfigBackup is enable (Manual) Profile Applicability: \u2022 Level 1 Description: Making a backup before and after each large change or series of changes, as well as after each little change, is the recommended practice. A first backup is typically prepared in case the change being done has unfavorable repercussions. Rationale: An after-the-fact backup is taken after evaluating the change and ensuring it had the intended outcome. Periodic backups are also helpful, regardless of changes, especially in cases where a manual backup may be missed.",
+        "source_pages": [
+          15
+        ],
+        "title": "Ensure AutoConfigBackup is enable"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In pfSense Shell type: cat /etc/motd",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "[2.5.0-RELEASE][admin@pfSense.home.arpa]/root: cat /etc/motd FreeBSD ?.?.? (UNKNOWN) Welcome to FreeBSD! Release Notes, Errata: https://www.FreeBSD.org/releases/ Security Advisories: https://www.FreeBSD.org/security/ FreeBSD Handbook: https://www.FreeBSD.org/handbook/ FreeBSD FAQ: https://www.FreeBSD.org/faq/ Questions List: https://lists.FreeBSD.org/mailman/listinfo/freebsd-questions/ FreeBSD Forums: https://forums.FreeBSD.org/ Documents installed with the system are in the /usr/local/share/doc/freebsd/ directory, or can be installed later with: pkg install en-freebsd-doc For other languages, replace \"en\" with a language code like de or fr. Show the version of FreeBSD installed: freebsd-version ; uname -a Please include that output and any error messages when posting questions. Introduction to manual pages: man man FreeBSD directory layout: man hier Edit /etc/motd to change this login announcement. [2.5.0-RELEASE][admin@pfSense.home.arpa]/root:",
+        "description": "Sets the MOTD message.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Network banners are electronic messages that provide notice of legal rights to users of computer networks. From a legal standpoint, banners have four primary functions. \u2022 First, banners may be used to generate consent to real-time monitoring under Title III. \u2022 Second, banners may be used to generate consent to the retrieval of stored files and records pursuant to ECPA. \u2022 Third, in the case of government networks, banners may eliminate any Fourth Amendment \"reasonable expectation of privacy\" that government employees or other users might otherwise retain in their use of the government's network under O'Connor v.",
+        "references": [],
+        "remediation": "In pfSense Shell: Type 'Message Of The Day (MOTD)' message here vi /etc/motd",
+        "required_text": "",
         "rule_id": "1.3",
-        "severity": "",
-        "source_excerpt": "1.3 Ensure 'Message Of The Day (MOTD)' is set (Manual) ........................................................................ 16 1.4 Ensure Hostname is set (Manual) ......................................................................................................... 18 1.5 Ensure DNS server is configured (Manual) ........................................................................................... 20 1.6 Ensure IPv6 is disabled if not used (Manual) ........................................................................................ 21 1.7 Ensure 'DNS Rebind Check' is unchecked (Manual) ............................................................................ 23",
-        "title": "Ensure 'Message Of The Day (MOTD)' is set (Manual) ........................................................................ 16",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.3 Ensure 'Message Of The Day (MOTD)' is set (Manual) Profile Applicability: \u2022 Level 1 Description: Sets the MOTD message. Rationale: Network banners are electronic messages that provide notice of legal rights to users of computer networks. From a legal standpoint, banners have four primary functions. \u2022 First, banners may be used to generate consent to real-time monitoring under Title III. \u2022 Second, banners may be used to generate consent to the retrieval of stored files",
+        "source_pages": [
+          17,
+          18
+        ],
+        "title": "Ensure 'Message Of The Day (MOTD)' is set"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the CLI: hostname In the GUI: - Navigate to System > General Setup - Check the Hostname Field",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "pfSense",
+        "description": "Changes the device default hostname.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The device hostname is crucial for asset inventory and identification as a security need, as well as for the deployment of public keys and certificates and for comparing logs from various systems while handling an issue.",
+        "references": [
+          "1. https://docs.netgate.com/pfsense/en/latest/config/general.html"
+        ],
+        "remediation": "In the GUI: - Navigate to System > General Setup - Update the field 'Hostname' with the new hostname, and CLIck \"Save\"",
+        "required_text": "",
         "rule_id": "1.4",
-        "severity": "",
-        "source_excerpt": "1.4 Ensure Hostname is set (Manual) ......................................................................................................... 18 1.5 Ensure DNS server is configured (Manual) ........................................................................................... 20 1.6 Ensure IPv6 is disabled if not used (Manual) ........................................................................................ 21 1.7 Ensure 'DNS Rebind Check' is unchecked (Manual) ............................................................................ 23 1.8 Ensure Web Management is Set to use HTTPS (Manual) .................................................................... 24",
-        "title": "Ensure Hostname is set (Manual) ......................................................................................................... 18",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.4 Ensure Hostname is set (Manual) Profile Applicability: \u2022 Level 1 Description: Changes the device default hostname. Rationale: The device hostname is crucial for asset inventory and identification as a security need, as well as for the deployment of public keys and certificates and for comparing logs from various systems while handling an issue. Audit: In the CLI:",
+        "source_pages": [
+          19,
+          20
+        ],
+        "title": "Ensure Hostname is set"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > General Setup - Check the 'DNS Servers' Field in 'DNS Server Settings' table",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "By default it will be blank, unless the dynamic WAN type of DHCP is enabled then your ISP may assign these.",
+        "description": "You must specify the main DNS server for your system in order to enable DNS lookups. Additionally, supplementary and third-party DNS servers can be specified. The system uses the main name server to resolve host names. The system examines the secondary name server, and if required, the tertiary, if a failure or time-out occurs.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The purpose is to perform the resolution of system hostnames to Internet Protocol (IP) addresses.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > General Setup - Update the field DNS Servers' with the Your DNS Server, and CLIck \"Save\"",
+        "required_text": "",
         "rule_id": "1.5",
-        "severity": "",
-        "source_excerpt": "1.5 Ensure DNS server is configured (Manual) ........................................................................................... 20 1.6 Ensure IPv6 is disabled if not used (Manual) ........................................................................................ 21 1.7 Ensure 'DNS Rebind Check' is unchecked (Manual) ............................................................................ 23 1.8 Ensure Web Management is Set to use HTTPS (Manual) .................................................................... 24 1.9 Ensure a synchronized High Availability peer is configured (Manual) ................................................... 26",
-        "title": "Ensure DNS server is configured (Manual) ........................................................................................... 20",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.5 Ensure DNS server is configured (Manual) Profile Applicability: \u2022 Level 1 Description: You must specify the main DNS server for your system in order to enable DNS lookups. Additionally, supplementary and third-party DNS servers can be specified. The system uses the main name server to resolve host names. The system examines the secondary name server, and if required, the tertiary, if a failure or time-out occurs. Rationale: The purpose is to perform the resolution of system hostnames to Internet Protocol (IP) addresses.",
+        "source_pages": [
+          21
+        ],
+        "title": "Ensure DNS server is configured"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the CLI: cat /etc/sysctl.conf check below entries: \u2022 net.ipv6.conf.all.disable_ipv6=1 \u2022 net.ipv6.conf.default.disable_ipv6=1 \u2022 net.ipv6.conf.lo.disable_ipv6 = 1 In the GUI: Navigate to System > Advanced > Networking Check if 'Allow IPv6' is checked.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In the GUI: System > Advanced > Networking 'Allow IPv6' is checked.",
+        "description": "Although IPv6 has many advantages over IPv4, not all organizations have IPv6 or dual stack configurations implemented.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "If IPv6 or dual stack is not to be used, it is recommended that IPv6 be disabled to reduce the attack surface of the system.",
+        "references": [],
+        "remediation": "In the CLI: Add below in the `/etc/sysctl.conf` file and reboot. - net.ipv6.conf.all.disable_ipv6=1 - net.ipv6.conf.default.disable_ipv6=1 - net.ipv6.conf.lo.disable_ipv6 = 1 In the GUI: Navigate to System > Advanced > Networking Uncheck 'Allow IPv6'",
+        "required_text": "",
         "rule_id": "1.6",
-        "severity": "",
-        "source_excerpt": "1.6 Ensure IPv6 is disabled if not used (Manual) ........................................................................................ 21 1.7 Ensure 'DNS Rebind Check' is unchecked (Manual) ............................................................................ 23 1.8 Ensure Web Management is Set to use HTTPS (Manual) .................................................................... 24 1.9 Ensure a synchronized High Availability peer is configured (Manual) ................................................... 26 2 Users Management ................................ ................................ ................................ ............27",
-        "title": "Ensure IPv6 is disabled if not used (Manual) ........................................................................................ 21",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.6 Ensure IPv6 is disabled if not used (Manual) Profile Applicability: \u2022 Level 1 Description: Although IPv6 has many advantages over IPv4, not all organizations have IPv6 or dual stack configurations implemented. Rationale: If IPv6 or dual stack is not to be used, it is recommended that IPv6 be disabled to reduce the attack surface of the system. Audit: In the CLI:",
+        "source_pages": [
+          22,
+          23
+        ],
+        "title": "Ensure IPv6 is disabled if not used"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI - Navigate to System > Advance - Check the 'DNS Rebind Check' Field",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "By default the 'DNS Rebind Check' is unchecked.",
+        "description": "Ensure that the 'DNS Rebind Check' feature is unchecked to protect against DNS rebinding attacks.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Attackers can use DNS rebinding to exploit a DNS server's response to a domain name query that resolves to a private IP address. This could provide a hacker access to private network resources that shouldn't be made available to the general public. To defend against this kind of attack, pfSense's \"DNS Rebind Check\" function disables private IP responses from DNS servers. As advised in the CIS benchmark, disabling this feature would expose the system to DNS rebinding attacks.",
+        "references": [],
+        "remediation": "In the GUI - Navigate to System > Advance - Uncheck on 'DNS Rebind Check' Field",
+        "required_text": "",
         "rule_id": "1.7",
-        "severity": "",
-        "source_excerpt": "1.7 Ensure 'DNS Rebind Check' is unchecked (Manual) ............................................................................ 23 1.8 Ensure Web Management is Set to use HTTPS (Manual) .................................................................... 24 1.9 Ensure a synchronized High Availability peer is configured (Manual) ................................................... 26 2 Users Management ................................ ................................ ................................ ............27 2.1 Ensure Sessions Timeout is set to less than or equal to 10 Minutes (Manual) ..................................... 28",
-        "title": "Ensure 'DNS Rebind Check' is unchecked (Manual) ............................................................................ 23",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.7 Ensure 'DNS Rebind Check' is unchecked (Manual) Profile Applicability: \u2022 Level 1 Description: Ensure that the 'DNS Rebind Check' feature is unchecked to protect against DNS rebinding attacks. Rationale: Attackers can use DNS rebinding to exploit a DNS server's response to a domain name query that resolves to a private IP address. This could provide a hacker access to private network resources that shouldn't be made available to the general public. To defend against this kind of attack, pfSense's \"DNS Rebind Check\" function disables",
+        "source_pages": [
+          24
+        ],
+        "title": "Ensure 'DNS Rebind Check' is unchecked"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > Advance > Admin Access - Check the 'webConfigurator' Table for HTTPS Enable.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In the GUI: System > Advanced > Admin Access 'Protocol' will be 'HTTPS (SSL/TLS)'",
+        "description": "Web Admin Management Portal should only be accessed using HTTPS Protocol.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "HTTP transmits all data (including passwords) in clear text over the network and provides no assurance of the identity of the hosts involved. Because of this HTTP should never be used for sensitive tasks such as managing network devices or entering login credentials and HTTPS should be configured for Web Portal Management instead",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > Advanced > Admin Access - Select 'HTTPS' in the 'webConfigurator'. - CLIck 'Save'",
+        "required_text": "",
         "rule_id": "1.8",
-        "severity": "",
-        "source_excerpt": "1.8 Ensure Web Management is Set to use HTTPS (Manual) .................................................................... 24 1.9 Ensure a synchronized High Availability peer is configured (Manual) ................................................... 26 2 Users Management ................................ ................................ ................................ ............27 2.1 Ensure Sessions Timeout is set to less than or equal to 10 Minutes (Manual) ..................................... 28 Page 3",
-        "title": "Ensure Web Management is Set to use HTTPS (Manual) .................................................................... 24",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.8 Ensure Web Management is Set to use HTTPS (Manual) Profile Applicability: \u2022 Level 1 Description: Web Admin Management Portal should only be accessed using HTTPS Protocol. Rationale: HTTP transmits all data (including passwords) in clear text over the network and provides no assurance of the identity of the hosts involved. Because of this HTTP should never be used for sensitive tasks such as managing network devices or entering login credentials and HTTPS should be configured for Web Portal Management instead Audit:",
+        "source_pages": [
+          25
+        ],
+        "title": "Ensure Web Management is Set to use HTTPS"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > High Avail. Sync - Check \"Synchronize Config to IP\" is configured.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "All fields are blank",
+        "description": "Ensure a High Availability peer is fully synchronized and in a passive or active state.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "To ensure availability of both the firewall and the resources it protects, a High Availability peer is required. In the event a single firewall fails, or when maintenance such as a software update is required, the HA peer can be used to automatically fail over session states and maintain overall availability",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > High Avail. Sync - Setup each field and Hit Save",
+        "required_text": "",
         "rule_id": "1.9",
-        "severity": "",
-        "source_excerpt": "1.9 Ensure a synchronized High Availability peer is configured (Manual) ................................................... 26 2 Users Management ................................ ................................ ................................ ............27 2.1 Ensure Sessions Timeout is set to less than or equal to 10 Minutes (Manual) ..................................... 28 Page 3 2.2 Ensure LDAP or RADIUS server configured (Manual) .......................................................................... 30",
-        "title": "Ensure a synchronized High Availability peer is configured (Manual) ................................................... 26",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "1.9 Ensure a synchronized High Availability peer is configured Profile Applicability: \u2022 Level 1 Description: Ensure a High Availability peer is fully synchronized and in a passive or active state. Rationale: To ensure availability of both the firewall and the resources it protects, a High Availability peer is required. In the event a single firewall fails, or when maintenance such as a software update is required, the HA peer can be used to automatically fail over session states and maintain overall availability Audit:",
+        "source_pages": [
+          27
+        ],
+        "title": "Ensure a synchronized High Availability peer is configured"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to System > User Manager - CLIck the Setting at the top. - Check on the 'Session Timeout' field.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Username listed will be: 'admin'",
+        "description": "The session inactivity timeout setting represents the amount of time a user can be inactive before the user's session times out and closes. It only affects user browser sessions.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Indefinite or even long session timeout window increase the risk of attackers abusing abandoned sessions",
+        "references": [],
+        "remediation": "In GUI: - Navigate to System > User Manager - CLIck the Setting at the top. - set 10 in the 'Session Timeout' field. - CLIck Save",
+        "required_text": "",
         "rule_id": "2.1",
-        "severity": "",
-        "source_excerpt": "2.1 Ensure Sessions Timeout is set to less than or equal to 10 Minutes (Manual) ..................................... 28 Page 3 2.2 Ensure LDAP or RADIUS server configured (Manual) .......................................................................... 30 2.3 Ensure Console Menu is Password Protected (Manual) ....................................................................... 31 2.4 Ensure all default accounts are either disabled or utilize strong passwords (Manual) .......................... 32",
-        "title": "Ensure Sessions Timeout is set to less than or equal to 10 Minutes (Manual) ..................................... 28",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "2.1 Ensure Sessions Timeout is set to less than or equal to 10 Profile Applicability: \u2022 Level 1 Description: The session inactivity timeout setting represents the amount of time a user can be inactive before the user's session times out and closes. It only affects user browser sessions. Rationale: Indefinite or even long session timeout window increase the risk of attackers abusing abandoned sessions Audit:",
+        "source_pages": [
+          29
+        ],
+        "title": "Ensure Sessions Timeout is set to less than or equal to 10 Minutes"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > User Manager. - CLIck the Authentication Servers at the top. - Check \"Authentication Servers\" Setting",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8 5.6 Centralize Account Management",
+          "Centralize account management through a directory or identity service. \u25cf \u25cf",
+          "v7"
+        ],
+        "default_value": "'Server Name' will be 'Local Database'",
+        "description": "Configured the LDAP Servers or Radius server for central authentication.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Authentication, authorization and accounting (AAA) scheme provide an authoritative source for managing and monitoring access for devices.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > User Manager. - CLIck the Authentication Servers at the top. - Configure \"Authentication Servers\" Setting",
+        "required_text": "",
         "rule_id": "2.2",
-        "severity": "",
-        "source_excerpt": "2.2 Ensure LDAP or RADIUS server configured (Manual) .......................................................................... 30 2.3 Ensure Console Menu is Password Protected (Manual) ....................................................................... 31 2.4 Ensure all default accounts are either disabled or utilize strong passwords (Manual) .......................... 32 3 Password Policy ................................ ................................ ................................ ................34 3.1 Ensure 'Local Account status' is set to 'Disabled' (Manual) ................................................................... 35",
-        "title": "Ensure LDAP or RADIUS server configured (Manual) .......................................................................... 30",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "2.2 Ensure LDAP or RADIUS server configured (Manual) Profile Applicability: \u2022 Level 1 Description: Configured the LDAP Servers or Radius server for central authentication. Rationale: Authentication, authorization and accounting (AAA) scheme provide an authoritative source for managing and monitoring access for devices. Audit: In the GUI: - Navigate to System > User Manager.",
+        "source_pages": [
+          31
+        ],
+        "title": "Ensure LDAP or RADIUS server configured"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > Advanced > Admin Access. - Check \"Console Options\" Setting",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "'Console menu' will be unchecked",
+        "description": "Set the Console Menu to password protected.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "An unattended computer with an open Console Menu session to the device could allow an unauthorized user access to the firewall\u2019s management.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > Advanced > Admin Access. - Set \"Console Options\" Setting - CLIck \"Save\"",
+        "required_text": "",
         "rule_id": "2.3",
-        "severity": "",
-        "source_excerpt": "2.3 Ensure Console Menu is Password Protected (Manual) ....................................................................... 31 2.4 Ensure all default accounts are either disabled or utilize strong passwords (Manual) .......................... 32 3 Password Policy ................................ ................................ ................................ ................34 3.1 Ensure 'Local Account status' is set to 'Disabled' (Manual) ................................................................... 35 3.2 Ensure Login Protection Threshold is set to 30 or less (Manual) .......................................................... 36",
-        "title": "Ensure Console Menu is Password Protected (Manual) ....................................................................... 31",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "2.3 Ensure Console Menu is Password Protected (Manual) Profile Applicability: \u2022 Level 1 Description: Set the Console Menu to password protected. Rationale: An unattended computer with an open Console Menu session to the device could allow an unauthorized user access to the firewall\u2019s management. Audit: In the GUI: - Navigate to System > Advanced > Admin Access.",
+        "source_pages": [
+          32
+        ],
+        "title": "Ensure Console Menu is Password Protected"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "The known default accounts are often (without limiting to) the following: 'admin', 'guest', 'user', 'root', 'administrator', 'operator', 'supervisor', and 'demo'. It is important to change the passwords of these accounts to prevent attackers from using them to gain unauthorized access to the system. The use of strong, unique passwords for all user accounts is also recommended to further enhance security.",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to System > User Manager > Users - View the default users",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "The only default user is the \"admin\" user.",
+        "description": "Disable the known default accounts configured. Note: The default admin account must remain enabled for high availability synchronization to work. Disabling it could cause issues.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Default accounts are accounts with predefined usernames and passwords that are typically included with software and hardware devices. Attackers often target default accounts because they are widely known and can be used to gain unauthorized access to a system. To prevent unauthorized access, all default accounts should either be disabled or have their passwords changed.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to System > User Manager > Users - Remove any default users that are not used. Note: The default admin account must remain enabled for high availability synchronization to work. Disabling it could cause issues.",
+        "required_text": "",
         "rule_id": "2.4",
-        "severity": "",
-        "source_excerpt": "2.4 Ensure all default accounts are either disabled or utilize strong passwords (Manual) .......................... 32 3 Password Policy ................................ ................................ ................................ ................34 3.1 Ensure 'Local Account status' is set to 'Disabled' (Manual) ................................................................... 35 3.2 Ensure Login Protection Threshold is set to 30 or less (Manual) .......................................................... 36 3.3 Ensure Allow access again after time is set to 300 or more second (Manual) ...................................... 38",
-        "title": "Ensure all default accounts are either disabled or utilize strong passwords (Manual) .......................... 32",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "2.4 Ensure all default accounts are either disabled or utilize strong Profile Applicability: \u2022 Level 1 Description: Disable the known default accounts configured. Note: The default admin account must remain enabled for high availability synchronization to work. Disabling it could cause issues. Rationale: Default accounts are accounts with predefined usernames and passwords that are typically included with software and hardware devices. Attackers often target default accounts because they are widely known and can be used to gain unauthorized access",
+        "source_pages": [
+          33,
+          34
+        ],
+        "title": "Ensure all default accounts are either disabled or utilize strong passwords"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Need to manually check each account.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "Disable the 'Local User' account except for the admin user.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Local accounts pose a threat to system security since the users are not manageable from the LDAP server.",
+        "references": [],
+        "remediation": "Disabled Local User Account.",
+        "required_text": "",
         "rule_id": "3.1",
-        "severity": "",
-        "source_excerpt": "3.1 Ensure 'Local Account status' is set to 'Disabled' (Manual) ................................................................... 35 3.2 Ensure Login Protection Threshold is set to 30 or less (Manual) .......................................................... 36 3.3 Ensure Allow access again after time is set to 300 or more second (Manual) ...................................... 38 3.4 Ensure default password of admin is changed (Manual)....................................................................... 39 4 Firewall Policy ................................ ................................ ................................ ....................41",
-        "title": "Ensure 'Local Account status' is set to 'Disabled' (Manual) ................................................................... 35",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "3.1 Ensure 'Local Account status' is set to 'Disabled' (Manual) Profile Applicability: \u2022 Level 1 Description: Disable the 'Local User' account except for the admin user. Rationale: Local accounts pose a threat to system security since the users are not manageable from the LDAP server. Audit: Need to manually check each account. Remediation:",
+        "source_pages": [
+          36
+        ],
+        "title": "Ensure 'Local Account status' is set to 'Disabled'"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > Advanced - Check the 'Login Protection' > 'Threshold' Field",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "The Login Protection Threshold is a score-based system that helps to prevent unauthorized access to the pfSense firewall. This score is based on various criteria, including the number of unsuccessful login attempts from a specific IP address. This control ensures that the Login Protection Threshold is set to a value of 30 or less.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Setting the Login Protection Threshold to a value of 30 or less helps to prevent attackers from brute-forcing their way into the system. The default value is 30, and this is a reasonable value for most situations. By limiting the number of unsuccessful login attempts, the system can protect against unauthorized access and improve security.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > Advanced - Set 30 in the 'Login Protection' > 'Threshold' Field - CLIck 'Save'",
+        "required_text": "",
         "rule_id": "3.2",
-        "severity": "",
-        "source_excerpt": "3.2 Ensure Login Protection Threshold is set to 30 or less (Manual) .......................................................... 36 3.3 Ensure Allow access again after time is set to 300 or more second (Manual) ...................................... 38 3.4 Ensure default password of admin is changed (Manual)....................................................................... 39 4 Firewall Policy ................................ ................................ ................................ ....................41 4.1 Firewall Rules Policy ..................................................................................................................... 42",
-        "title": "Ensure Login Protection Threshold is set to 30 or less (Manual) .......................................................... 36",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "3.2 Ensure Login Protection Threshold is set to 30 or less Profile Applicability: \u2022 Level 1 Description: The Login Protection Threshold is a score-based system that helps to prevent unauthorized access to the pfSense firewall. This score is based on various criteria, including the number of unsuccessful login attempts from a specific IP address. This control ensures that the Login Protection Threshold is set to a value of 30 or less. Rationale: Setting the Login Protection Threshold to a value of 30 or less helps to prevent attackers from brute-forcing their way into the system. The default value is 30, and this",
+        "source_pages": [
+          37
+        ],
+        "title": "Ensure Login Protection Threshold is set to 30 or less"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to System > Advanced > Admin Access - Check the 'Login Protection' options. - Check 'Blocktime' value is greater than 300 seconds.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v7"
+        ],
+        "default_value": "'Blocktime' will be blank",
+        "description": "Account password lockout >= 300 seconds. Allow access again after a user has been locked out (due to failed login attempts). The user is allowed access after the configured time if there have been no login attempts during that time).",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 2"
+        ],
+        "rationale": "the Allow access again after the time setting determines the number of seconds.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to System > Advanced > Admin Access - set the 'Login Protection' options. - set 'Blocktime' value to 300. - CLIck Save",
+        "required_text": "",
         "rule_id": "3.3",
-        "severity": "",
-        "source_excerpt": "3.3 Ensure Allow access again after time is set to 300 or more second (Manual) ...................................... 38 3.4 Ensure default password of admin is changed (Manual)....................................................................... 39 4 Firewall Policy ................................ ................................ ................................ ....................41 4.1 Firewall Rules Policy ..................................................................................................................... 42 4.1.1 Ensure no Allow Rule with Any in Destination Field present in the Firewall Rules (Manual) .............. 43",
-        "title": "Ensure Allow access again after time is set to 300 or more second (Manual) ...................................... 38",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "3.3 Ensure Allow access again after time is set to 300 or more Profile Applicability: \u2022 Level 2 Description: Account password lockout >= 300 seconds. Allow access again after a user has been locked out (due to failed login attempts). The user is allowed access after the configured time if there have been no login attempts during that time). Rationale: the Allow access again after the time setting determines the number of seconds. Audit: In GUI:",
+        "source_pages": [
+          39
+        ],
+        "title": "Ensure Allow access again after time is set to 300 or more second"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Try to login to the GUI with: Username: admin Password: pfsense",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default Values: User: admin Password: pfsense",
+        "description": "To assist users in changing the default password for 'admin' account.",
+        "forbidden_text": "",
+        "impact": "Failing to change the default 'admin' account's password creates high risk to the system as the 'admin' account may be abused by unauthorized users, allowing them full root access to the system.",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Using default passwords for the 'admin' account could cause a compromise to the system.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > User Manager - CLIck the Pencil Icon under 'Actions' - Change the password of the default 'admin' user account. - CLIck 'Save' at the bottom of the page.",
+        "required_text": "",
         "rule_id": "3.4",
-        "severity": "",
-        "source_excerpt": "3.4 Ensure default password of admin is changed (Manual)....................................................................... 39 4 Firewall Policy ................................ ................................ ................................ ....................41 4.1 Firewall Rules Policy ..................................................................................................................... 42 4.1.1 Ensure no Allow Rule with Any in Destination Field present in the Firewall Rules (Manual) .............. 43 4.1.2 Ensure no Allow Rule with Any in Source field present in the Firewall Rules (Manual)...................... 45",
-        "title": "Ensure default password of admin is changed (Manual)....................................................................... 39",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "3.4 Ensure default password of admin is changed (Manual) Profile Applicability: \u2022 Level 1 Description: To assist users in changing the default password for 'admin' account. Rationale: Using default passwords for the 'admin' account could cause a compromise to the system. Impact: Failing to change the default 'admin' account's password creates high risk to the system as the 'admin' account may be abused by unauthorized users, allowing them full root",
+        "source_pages": [
+          40,
+          41
+        ],
+        "title": "Ensure default password of admin is changed"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.1",
-        "severity": "",
-        "source_excerpt": "4.1 Firewall Rules Policy ..................................................................................................................... 42 4.1.1 Ensure no Allow Rule with Any in Destination Field present in the Firewall Rules (Manual) .............. 43 4.1.2 Ensure no Allow Rule with Any in Source field present in the Firewall Rules (Manual)...................... 45 4.1.3 Ensure no Allow Rule with Any in Services field present in the Firewall Rules (Manual) ................... 47 4.1.4 Ensure there are no Unused Policies (Manual) .................................................................................. 49",
-        "title": "Firewall Rules Policy ..................................................................................................................... 42",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Verify there are no allowed rules present in the firewall which has Any used in the Destination field In CLI: pfctl -sr",
         "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default \"Allow Any\" rule to prevent lockout. Default \"Allow Any\" rules on LAN Interfaces to allow network connectivity within the LAN.",
+        "description": "The Firewall Rules with Any in Source field allows all the IP Addresses of the Network to access the specified destination configured in the Firewall rules for specific services.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "In any properly designed and implemented Milner Firewall architecture the connection that loads the service should be explicitly allowed from the IP source address to the specific IP destination address. This services abolishes the chances of an exploit because of service misconfigurations.",
+        "references": [],
+        "remediation": "Delete or Disable the rule from the firewall which has Any used in the Destination field.",
         "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
         "rule_id": "4.1.1",
-        "severity": "",
-        "source_excerpt": "4.1.1 Ensure no Allow Rule with Any in Destination Field present in the Firewall Rules (Manual) .............. 43 4.1.2 Ensure no Allow Rule with Any in Source field present in the Firewall Rules (Manual)...................... 45 4.1.3 Ensure no Allow Rule with Any in Services field present in the Firewall Rules (Manual) ................... 47 4.1.4 Ensure there are no Unused Policies (Manual) .................................................................................. 49 4.1.5 Ensure Logging is Enable for All Firewall Rules (Manual).................................................................. 50",
-        "title": "Ensure no Allow Rule with Any in Destination Field present in the Firewall Rules (Manual) .............. 43",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "4.1.1 Ensure no Allow Rule with Any in Destination Field present Profile Applicability: \u2022 Level 1 Description: The Firewall Rules with Any in Source field allows all the IP Addresses of the Network to access the specified destination configured in the Firewall rules for specific services. Rationale: In any properly designed and implemented Milner Firewall architecture the connection that loads the service should be explicitly allowed from the IP source address to the specific IP destination address. This services abolishes the chances of an exploit because of service misconfigurations.",
+        "source_pages": [
+          44
+        ],
+        "title": "Ensure no Allow Rule with Any in Destination Field present in the Firewall Rules"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Verify there are no allowed rules present in the firewall which has Any used in the Source field. If there is any such rule present in the firewall, it should have a business justification and also it should be documented In CLI: pfctl -sr",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default \"Allow Any\" rule to prevent lockout. Default \"Allow Any\" rules on LAN Interfaces to allow network connectivity within the LAN.",
+        "description": "The Firewall Rules with Any in the Destination field allows accessing all the IP Addresses of Network from specified Sources configured in the Firewall rules for specific services",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Ideally, the traffic should be explicitly allowed from the specific Source to specific Destination for the required services. This provides better control over the traffic passes through the firewall and reduce the chances of an exploit because of service misconfiguration.",
+        "references": [],
+        "remediation": "Delete the rule from the firewall which has Any used in the Source field.",
+        "required_text": "",
         "rule_id": "4.1.2",
-        "severity": "",
-        "source_excerpt": "4.1.2 Ensure no Allow Rule with Any in Source field present in the Firewall Rules (Manual)...................... 45 4.1.3 Ensure no Allow Rule with Any in Services field present in the Firewall Rules (Manual) ................... 47 4.1.4 Ensure there are no Unused Policies (Manual) .................................................................................. 49 4.1.5 Ensure Logging is Enable for All Firewall Rules (Manual).................................................................. 50 4.1.6 Ensure ICMP Request is securely configured (Manual) ..................................................................... 52",
-        "title": "Ensure no Allow Rule with Any in Source field present in the Firewall Rules (Manual)...................... 45",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "4.1.2 Ensure no Allow Rule with Any in Source field present in the Profile Applicability: \u2022 Level 1 Description: The Firewall Rules with Any in the Destination field allows accessing all the IP Addresses of Network from specified Sources configured in the Firewall rules for specific services Rationale: Ideally, the traffic should be explicitly allowed from the specific Source to specific Destination for the required services. This provides better control over the traffic passes through the firewall and reduce the chances of an exploit because of service",
+        "source_pages": [
+          46
+        ],
+        "title": "Ensure no Allow Rule with Any in Source field present in the Firewall Rules"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Verify there are no allowed rules present in the firewall which has Any used in the Service field. In CLI: pfctl -sr",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default \"Allow Any\" rule to prevent lockout. Default \"Allow Any\" rules on LAN Interfaces to allow network connectivity within the LAN.",
+        "description": "The Firewall Rules with Any in the Service field allows accessing all the Services from specified Source to specified Destination configured in the Firewall rules.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Many services, including telnet, FTP, and TFTP, have security problems. Attackers can utilize these services to their advantage in order to access computers, obtain credentials, or launch DoS attacks. These services must be set up in accordance with the requirements of the company.",
+        "references": [],
+        "remediation": "Delete the rule from the firewall which has Any used in the Service field.",
+        "required_text": "",
         "rule_id": "4.1.3",
-        "severity": "",
-        "source_excerpt": "4.1.3 Ensure no Allow Rule with Any in Services field present in the Firewall Rules (Manual) ................... 47 4.1.4 Ensure there are no Unused Policies (Manual) .................................................................................. 49 4.1.5 Ensure Logging is Enable for All Firewall Rules (Manual).................................................................. 50 4.1.6 Ensure ICMP Request is securely configured (Manual) ..................................................................... 52 5 Service Configuration ................................ ................................ ................................ ........54",
-        "title": "Ensure no Allow Rule with Any in Services field present in the Firewall Rules (Manual) ................... 47",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "4.1.3 Ensure no Allow Rule with Any in Services field present in Profile Applicability: \u2022 Level 1 Description: The Firewall Rules with Any in the Service field allows accessing all the Services from specified Source to specified Destination configured in the Firewall rules. Rationale: Many services, including telnet, FTP, and TFTP, have security problems. Attackers can utilize these services to their advantage in order to access computers, obtain credentials, or launch DoS attacks. These services must be set up in accordance with the requirements of the company.",
+        "source_pages": [
+          48
+        ],
+        "title": "Ensure no Allow Rule with Any in Services field present in the Firewall Rules"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Review all Firewall policies for use and validate the purpose of the policy.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "Ensure that there are no firewall policies that are unused",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Unused policies may provide unintended or anticipated access to services or hosts.",
+        "references": [],
+        "remediation": "Disable and then delete any unused firewall policies.",
+        "required_text": "",
         "rule_id": "4.1.4",
-        "severity": "",
-        "source_excerpt": "4.1.4 Ensure there are no Unused Policies (Manual) .................................................................................. 49 4.1.5 Ensure Logging is Enable for All Firewall Rules (Manual).................................................................. 50 4.1.6 Ensure ICMP Request is securely configured (Manual) ..................................................................... 52 5 Service Configuration ................................ ................................ ................................ ........54 5.1 SNMP Policy ................................................................................................................................... 55",
-        "title": "Ensure there are no Unused Policies (Manual) .................................................................................. 49",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "4.1.4 Ensure there are no Unused Policies (Manual) Profile Applicability: \u2022 Level 1 Description: Ensure that there are no firewall policies that are unused Rationale: Unused policies may provide unintended or anticipated access to services or hosts. Audit: Review all Firewall policies for use and validate the purpose of the policy. Remediation: Disable and then delete any unused firewall policies.",
+        "source_pages": [
+          50
+        ],
+        "title": "Ensure there are no Unused Policies"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to Status > System Logs > Settings - Verify Desired Logging Options are enabled",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "The following log options are enabled by default: Log firewall default blocks: \u2022 Log packets matched from the default block rules in the ruleset \u2022 Log packets blocked by 'Block Bogon Networks' rules \u2022 Log packets blocked by 'Block Private Networks' rules Web Server Log: \u2022 Log errors from the web server process Log Configuration Changes: \u2022 Generate log entries when making changes to the configuration.",
+        "description": "Ensure all firewall rules have logging enable.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The event log of firewall rules helps in identifying the allowed and blocked traffic and also helps in troubleshooting and forensic investigation. It is always good to enable logging for all the firewall rules, but by logging multiple firewall rules results in a huge log files, which requires huge disk space and management operations. Logs play an important role in security auditing, incident response, system maintenance and forensic investigation, and should be configured as per the business needs.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to Status > System Logs > Settings - Check Desired Logging Options to enable.",
+        "required_text": "",
         "rule_id": "4.1.5",
-        "severity": "",
-        "source_excerpt": "4.1.5 Ensure Logging is Enable for All Firewall Rules (Manual).................................................................. 50 4.1.6 Ensure ICMP Request is securely configured (Manual) ..................................................................... 52 5 Service Configuration ................................ ................................ ................................ ........54 5.1 SNMP Policy ................................................................................................................................... 55 5.1.1 Ensure SNMP traps receivers is set (Manual) ................................................................................... 56",
-        "title": "Ensure Logging is Enable for All Firewall Rules (Manual).................................................................. 50",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "4.1.5 Ensure Logging is Enable for All Firewall Rules (Manual) Profile Applicability: \u2022 Level 1 Description: Ensure all firewall rules have logging enable. Rationale: The event log of firewall rules helps in identifying the allowed and blocked traffic and also helps in troubleshooting and forensic investigation. It is always good to enable logging for all the firewall rules, but by logging multiple firewall rules results in a huge log files, which requires huge disk space and management operations. Logs play an important role in security auditing, incident response, system maintenance and forensic",
+        "source_pages": [
+          51,
+          52
+        ],
+        "title": "Ensure Logging is Enable for All Firewall Rules"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to Firewall > Rules - Review the firewall rules to determine if any ICMP request rules are present. - Review the firewall rules to determine if any ICMP request rules are present. - Check the configured ICMP request types for each rule to ensure that only necessary types are allowed",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "ICMP (Internet Control Message Protocol) is used by network devices to communicate with each other. While ICMP is essential for network management and troubleshooting, allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood and ICMP Redirect. Therefore, it is recommended to securely configure the allowed types of ICMP requests on the firewall.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood and ICMP Redirect. To mitigate these risks, it is recommended to securely configure the allowed types of ICMP requests on the firewall.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to Firewall > Rules - Review the firewall rules to determine if any ICMP request rules are present. - Review the firewall rules to determine if any ICMP request rules are present. - Check the configured ICMP request types for each rule to ensure that only necessary types are allowed",
+        "required_text": "",
         "rule_id": "4.1.6",
-        "severity": "",
-        "source_excerpt": "4.1.6 Ensure ICMP Request is securely configured (Manual) ..................................................................... 52 5 Service Configuration ................................ ................................ ................................ ........54 5.1 SNMP Policy ................................................................................................................................... 55 5.1.1 Ensure SNMP traps receivers is set (Manual) ................................................................................... 56 5.1.2 Ensure SNMP traps is enabled (Manual) ........................................................................................... 58",
-        "title": "Ensure ICMP Request is securely configured (Manual) ..................................................................... 52",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "4.1.6 Ensure ICMP Request is securely configured (Manual) Profile Applicability: \u2022 Level 1 Description: ICMP (Internet Control Message Protocol) is used by network devices to communicate with each other. While ICMP is essential for network management and troubleshooting, allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood and ICMP Redirect. Therefore, it is recommended to securely configure the allowed types of ICMP requests on the firewall. Rationale: Allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood",
+        "source_pages": [
+          53,
+          54
+        ],
+        "title": "Ensure ICMP Request is securely configured"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.1",
-        "severity": "",
-        "source_excerpt": "5.1 SNMP Policy ................................................................................................................................... 55 5.1.1 Ensure SNMP traps receivers is set (Manual) ................................................................................... 56 5.1.2 Ensure SNMP traps is enabled (Manual) ........................................................................................... 58 5.1.3 Ensure that the add-on package NET-SNMP is installed and configured securely (Manual) ............. 60 5.2 NTP Service Policy ........................................................................................................................ 61",
-        "title": "SNMP Policy ................................................................................................................................... 55",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to Services > SNMP. - Check \"SNMP Traps Enable\" is enabled. - Check on the \"SNMP Trap Settings\" is configured.",
         "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In GUI: - Under 'SNMP Daemon Settings' - 'Enable' box will not be checked.",
+        "description": "Enables SNMP traps receivers where traps are sent.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS or SNMP traps receivers and should be enabled in order to be sent and processed by the NMS. The NMS or SNMP traps receivers will then provide a comprehensive aggregation and reporting of events generated, thus helping the administrator. Additionally, the add on package NET-SNMP (when configured appropriately) can satisfy this as well.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to Services > SNMP. - Check \"SNMP Traps Enable\" is enable. - Configured the \"SNMP Trap Settings\" value. - CLIck Save",
         "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
         "rule_id": "5.1.1",
-        "severity": "",
-        "source_excerpt": "5.1.1 Ensure SNMP traps receivers is set (Manual) ................................................................................... 56 5.1.2 Ensure SNMP traps is enabled (Manual) ........................................................................................... 58 5.1.3 Ensure that the add-on package NET-SNMP is installed and configured securely (Manual) ............. 60 5.2 NTP Service Policy ........................................................................................................................ 61 5.2.1 Ensure time zone is properly configured (Manual) ............................................................................. 62",
-        "title": "Ensure SNMP traps receivers is set (Manual) ................................................................................... 56",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "5.1.1 Ensure SNMP traps receivers is set (Manual) Profile Applicability: \u2022 Level 1 Description: Enables SNMP traps receivers where traps are sent. Rationale: The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS or SNMP traps receivers and should be enabled in order to be sent and processed by the NMS. The NMS or SNMP traps receivers will then provide a comprehensive aggregation and reporting of",
+        "source_pages": [
+          57,
+          58
+        ],
+        "title": "Ensure SNMP traps receivers is set"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "IN GUI: - Navigate to Services > SNMP. - Check \"SNMP Traps Enable\" is enabled.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In GUI: - Under 'SNMP Daemon Settings' - 'Enable' box will not be checked.",
+        "description": "Enables SNMP traps to be sent to the Network Management Station (NMS)",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS and should be enabled in order to be sent and processed by the NMS. The NMS will then provide a comprehensive aggregation and reporting of events generated, thus helping the administrator.",
+        "references": [],
+        "remediation": "IN GUI: - Navigate to Services > SNMP. - set checkbox \"SNMP Traps Enable\". - CLIck on Save",
+        "required_text": "",
         "rule_id": "5.1.2",
-        "severity": "",
-        "source_excerpt": "5.1.2 Ensure SNMP traps is enabled (Manual) ........................................................................................... 58 5.1.3 Ensure that the add-on package NET-SNMP is installed and configured securely (Manual) ............. 60 5.2 NTP Service Policy ........................................................................................................................ 61 5.2.1 Ensure time zone is properly configured (Manual) ............................................................................. 62 5.3 DNS Service Policy ........................................................................................................................ 64",
-        "title": "Ensure SNMP traps is enabled (Manual) ........................................................................................... 58",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "5.1.2 Ensure SNMP traps is enabled (Manual) Profile Applicability: \u2022 Level 1 Description: Enables SNMP traps to be sent to the Network Management Station (NMS) Rationale: The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS and should be enabled in order to be sent and processed by the NMS. The NMS will then provide a comprehensive aggregation and reporting of events generated, thus helping the",
+        "source_pages": [
+          59
+        ],
+        "title": "Ensure SNMP traps is enabled"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "\u2022 Check if the NET-SNMP package is installed on pfSense. \u2022 Verify that SNMPv3 is enabled and configured with strong encryption and authentication settings. \u2022 Verify that SNMP access is restricted to authorized hosts only. \u2022 Verify that default community strings have been removed or changed.",
+        "check_pattern": "",
+        "cis_controls": [],
+        "default_value": "",
+        "description": "The add-on package NET-SNMP provides Simple Network Management Protocol (SNMP) functionality on pfSense. SNMP is used for network management and monitoring, allowing administrators to collect and view information about devices on the network. This rule ensures that the NET-SNMP package is installed and securely configured.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 2"
+        ],
+        "rationale": "SNMP is a widely used protocol for network management and monitoring, and it is important to ensure that it is securely configured on pfSense. If SNMP is not properly secured, it can allow unauthorized access to network devices and sensitive information. By ensuring that the NET-SNMP package is installed and configured securely, administrators can monitor network devices while also maintaining the security of their network.",
+        "references": [],
         "remediation": "",
+        "required_text": "",
         "rule_id": "5.1.3",
-        "severity": "",
-        "source_excerpt": "5.1.3 Ensure that the add-on package NET-SNMP is installed and configured securely (Manual) ............. 60 5.2 NTP Service Policy ........................................................................................................................ 61 5.2.1 Ensure time zone is properly configured (Manual) ............................................................................. 62 5.3 DNS Service Policy ........................................................................................................................ 64 5.3.1 Ensure 'DNSSEC' is Enable on DNS Service (Manual) ..................................................................... 65",
-        "title": "Ensure that the add-on package NET-SNMP is installed and configured securely (Manual) ............. 60",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "5.1.3 Ensure that the add-on package NET-SNMP is installed and Profile Applicability: \u2022 Level 2 Description: The add-on package NET-SNMP provides Simple Network Management Protocol (SNMP) functionality on pfSense. SNMP is used for network management and monitoring, allowing administrators to collect and view information about devices on the network. This rule ensures that the NET-SNMP package is installed and securely configured. Rationale: SNMP is a widely used protocol for network management and monitoring, and it is",
+        "source_pages": [
+          61
+        ],
+        "title": "Ensure that the add-on package NET-SNMP is installed and configured securely"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.2",
-        "severity": "",
-        "source_excerpt": "5.2 NTP Service Policy ........................................................................................................................ 61 5.2.1 Ensure time zone is properly configured (Manual) ............................................................................. 62 5.3 DNS Service Policy ........................................................................................................................ 64 5.3.1 Ensure 'DNSSEC' is Enable on DNS Service (Manual) ..................................................................... 65 5.4 VPN Configuration ......................................................................................................................... 66",
-        "title": "NTP Service Policy ........................................................................................................................ 61",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to Services > NTP - verify the 'Enable NTP Server' Field",
         "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default value is 'NTP Server Configuration' - 'Enable' will be checked",
+        "description": "Sets the local time zone information so that the device's time display is more accurate for viewers.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The device's time setting needs to be accurate for two reasons in particular. The first is that digital certificates use this time to compare the validity period they specify in their Valid From and Valid To fields to a range of times. The second justification is the need for accurate time stamps when logging data. When doing packet captures, delivering messages to a Syslog server, SNMP monitoring stations, or other tasks, timestamps are only meaningful if you can be certain of their accuracy.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to Services > NTP - Checked the 'Enable NTP Server' Field - CLIck 'Save'",
         "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
         "rule_id": "5.2.1",
-        "severity": "",
-        "source_excerpt": "5.2.1 Ensure time zone is properly configured (Manual) ............................................................................. 62 5.3 DNS Service Policy ........................................................................................................................ 64 5.3.1 Ensure 'DNSSEC' is Enable on DNS Service (Manual) ..................................................................... 65 5.4 VPN Configuration ......................................................................................................................... 66 5.4.1 Ensure RADIUS or LDAP are being used for VPN Authentication (Manual) ...................................... 67",
-        "title": "Ensure time zone is properly configured (Manual) ............................................................................. 62",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "5.2.1 Ensure time zone is properly configured (Manual) Profile Applicability: \u2022 Level 1 Description: Sets the local time zone information so that the device's time display is more accurate for viewers. Rationale: The device's time setting needs to be accurate for two reasons in particular. The first is that digital certificates use this time to compare the validity period they specify in their Valid From and Valid To fields to a range of times. The second justification is the need for accurate time stamps when logging data. When doing packet captures, delivering",
+        "source_pages": [
+          63
+        ],
+        "title": "Ensure time zone is properly configured"
       },
       {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.3",
-        "severity": "",
-        "source_excerpt": "5.3 DNS Service Policy ........................................................................................................................ 64 5.3.1 Ensure 'DNSSEC' is Enable on DNS Service (Manual) ..................................................................... 65 5.4 VPN Configuration ......................................................................................................................... 66 5.4.1 Ensure RADIUS or LDAP are being used for VPN Authentication (Manual) ...................................... 67 5.4.2 Apply a Trusted Signed Certificate for VPN Portal (Manual) .............................................................. 68",
-        "title": "DNS Service Policy ........................................................................................................................ 64",
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to Services > DNS Resolver > General DNS Resolver Options - Verify if \"DNSSEC\" is checked or not.",
         "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "The DNS Resolver is enabled by default.",
+        "description": "Enable the \"DNSSEC\" in the DNS Service Configuration.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Enable DNSSEC Support. DNSSEC is a means of protecting DNS data from attacks which use forged or manipulated DNS data, such as DNS cache poisoning.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to Services > DNS Resolver > General DNS Resolver Options - Check the box next to 'DNSSEC' and set Enable - CLIck 'Save'",
         "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
         "rule_id": "5.3.1",
-        "severity": "",
-        "source_excerpt": "5.3.1 Ensure 'DNSSEC' is Enable on DNS Service (Manual) ..................................................................... 65 5.4 VPN Configuration ......................................................................................................................... 66 5.4.1 Ensure RADIUS or LDAP are being used for VPN Authentication (Manual) ...................................... 67 5.4.2 Apply a Trusted Signed Certificate for VPN Portal (Manual) .............................................................. 68 5.4.3 Ensure that OpenVPN is configured to use TLS encryption for secure communications. (Manual) ... 70",
-        "title": "Ensure 'DNSSEC' is Enable on DNS Service (Manual) ..................................................................... 65",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.4",
-        "severity": "",
-        "source_excerpt": "5.4 VPN Configuration ......................................................................................................................... 66 5.4.1 Ensure RADIUS or LDAP are being used for VPN Authentication (Manual) ...................................... 67 5.4.2 Apply a Trusted Signed Certificate for VPN Portal (Manual) .............................................................. 68 5.4.3 Ensure that OpenVPN is configured to use TLS encryption for secure communications. (Manual) ... 70 5.5 OpenVPN ........................................................................................................................................ 71",
-        "title": "VPN Configuration ......................................................................................................................... 66",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.4.1",
-        "severity": "",
-        "source_excerpt": "5.4.1 Ensure RADIUS or LDAP are being used for VPN Authentication (Manual) ...................................... 67 5.4.2 Apply a Trusted Signed Certificate for VPN Portal (Manual) .............................................................. 68 5.4.3 Ensure that OpenVPN is configured to use TLS encryption for secure communications. (Manual) ... 70 5.5 OpenVPN ........................................................................................................................................ 71 5.5.1 Ensure that OpenVPN use strong ciphers or hashing algorithms (Manual) ....................................... 72",
-        "title": "Ensure RADIUS or LDAP are being used for VPN Authentication (Manual) ...................................... 67",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.4.2",
-        "severity": "",
-        "source_excerpt": "5.4.2 Apply a Trusted Signed Certificate for VPN Portal (Manual) .............................................................. 68 5.4.3 Ensure that OpenVPN is configured to use TLS encryption for secure communications. (Manual) ... 70 5.5 OpenVPN ........................................................................................................................................ 71 5.5.1 Ensure that OpenVPN use strong ciphers or hashing algorithms (Manual) ....................................... 72 6 Logging ................................ ................................ ................................ .............................. 73",
-        "title": "Apply a Trusted Signed Certificate for VPN Portal (Manual) .............................................................. 68",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.4.3",
-        "severity": "",
-        "source_excerpt": "5.4.3 Ensure that OpenVPN is configured to use TLS encryption for secure communications. (Manual) ... 70 5.5 OpenVPN ........................................................................................................................................ 71 5.5.1 Ensure that OpenVPN use strong ciphers or hashing algorithms (Manual) ....................................... 72 6 Logging ................................ ................................ ................................ .............................. 73 6.1 Ensure syslog is configured (Manual) ................................................................................................... 74",
-        "title": "Ensure that OpenVPN is configured to use TLS encryption for secure communications. (Manual) ... 70",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.5",
-        "severity": "",
-        "source_excerpt": "5.5 OpenVPN ........................................................................................................................................ 71 5.5.1 Ensure that OpenVPN use strong ciphers or hashing algorithms (Manual) ....................................... 72 6 Logging ................................ ................................ ................................ .............................. 73 6.1 Ensure syslog is configured (Manual) ................................................................................................... 74 Appendix: Summary Table ......................................................................................... 76",
-        "title": "OpenVPN ........................................................................................................................................ 71",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "5.5.1",
-        "severity": "",
-        "source_excerpt": "5.5.1 Ensure that OpenVPN use strong ciphers or hashing algorithms (Manual) ....................................... 72 6 Logging ................................ ................................ ................................ .............................. 73 6.1 Ensure syslog is configured (Manual) ................................................................................................... 74 Appendix: Summary Table ......................................................................................... 76 Appendix: Change History ......................................................................................... 91",
-        "title": "Ensure that OpenVPN use strong ciphers or hashing algorithms (Manual) ....................................... 72",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "6.1",
-        "severity": "",
-        "source_excerpt": "6.1 Ensure syslog is configured (Manual) ................................................................................................... 74 Appendix: Summary Table ......................................................................................... 76 Appendix: Change History ......................................................................................... 91 Page 4 Overview",
-        "title": "Ensure syslog is configured (Manual) ................................................................................................... 74",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "14.1",
-        "severity": "",
-        "source_excerpt": "14.1 Establish and Maintain a Security Awareness Program Establish and maintain a security awareness program. The purpose of a security awareness program is to educate the enterprise\u2019s workforce on how to interact with enterprise assets and data in a secure manner. Conduct training at hire and, at a",
-        "title": "Establish and Maintain a Security Awareness",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "17.3",
-        "severity": "",
-        "source_excerpt": "17.3 Implement a Security Awareness Program Create a security awareness program for all workforce members to complete on a regular basis to ensure they understand and exhibit the necessary behaviors and skills to help ensure the security of the organization. The organization's security awareness program should be communicated in a continuous and engaging",
-        "title": "Implement a Security Awareness Program",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "11.1",
-        "severity": "",
-        "source_excerpt": "11.1 Establish and Maintain a Data Recovery Process Establish and maintain a data recovery process. In the process, address the scope of data recovery activities, recovery prioritization, and the security of backup data. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard.",
-        "title": "Establish and Maintain a Data Recovery Process",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.9",
-        "severity": "",
-        "source_excerpt": "4.9 Configure Trusted DNS Servers on Enterprise Assets Configure trusted DNS servers on enterprise assets. Example implementations include: configuring assets to use enterprise-controlled DNS servers and/or reputable externally accessible DNS servers. \u25cf \u25cf",
-        "title": "Configure Trusted DNS Servers on Enterprise Assets",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.8",
-        "severity": "",
-        "source_excerpt": "4.8 Uninstall or Disable Unnecessary Services on Enterprise Assets and Software Uninstall or disable unnecessary services on enterprise assets and software, such as an unused file sharing service, web application module, or service function.",
-        "title": "Uninstall or Disable Unnecessary Services on",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "9.2",
-        "severity": "",
-        "source_excerpt": "9.2 Ensure Only Approved Ports, Protocols and Services Are Running Ensure that only network ports, protocols, and services listening on a system with validated business needs, are running on each system. \u25cf \u25cf",
-        "title": "Ensure Only Approved Ports, Protocols and Services",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "7.7",
-        "severity": "",
-        "source_excerpt": "7.7 Use of DNS Filtering Services Use DNS filtering services to help block access to known malicious domains. \u25cf \u25cf \u25cf Page 24",
-        "title": "Use of DNS Filtering Services",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "12.3",
-        "severity": "",
-        "source_excerpt": "12.3 Securely Manage Network Infrastructure Securely manage network infrastructure. Example implementations include version-controlled-infrastructure-as-code, and the use of secure network protocols, such as SSH and HTTPS. \u25cf \u25cf",
-        "title": "Securely Manage Network Infrastructure",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.2",
-        "severity": "",
-        "source_excerpt": "4.2 Establish and Maintain a Secure Configuration Process for Network Infrastructure Establish and maintain a secure configuration process for network devices. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard.",
-        "title": "Establish and Maintain a Secure Configuration",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.3",
-        "severity": "",
-        "source_excerpt": "4.3 Configure Automatic Session Locking on Enterprise Assets Configure automatic session locking on enterprise assets after a defined period of inactivity. For general purpose operating systems, the period must not exceed 15 minutes. For mobile end-user devices, the period must not exceed 2 minutes.",
-        "title": "Configure Automatic Session Locking on Enterprise",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "16.2",
-        "severity": "",
-        "source_excerpt": "16.2 Configure Centralized Point of Authentication Configure access for all accounts through as few centralized points of authentication as possible, including network, security, and cloud systems. \u25cf \u25cf Page 31",
-        "title": "Configure Centralized Point of Authentication",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.4",
-        "severity": "",
-        "source_excerpt": "4.4 Use Unique Passwords Where multi-factor authentication is not supported (such as local administrator, root, or service accounts), accounts will use passwords that are unique to that system. \u25cf \u25cf",
-        "title": "Use Unique Passwords",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.7",
-        "severity": "",
-        "source_excerpt": "4.7 Manage Default Accounts on Enterprise Assets and Software Manage default accounts on enterprise assets and software, such as root, administrator, and other pre-configured vendor accounts. Example implementations can include: disabling default accounts or making them",
-        "title": "Manage Default Accounts on Enterprise Assets and",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.10",
-        "severity": "",
-        "source_excerpt": "4.10 Enforce Automatic Device Lockout on Portable End- User Devices Enforce automatic device lockout following a predetermined threshold of local failed authentication attempts on portable end-user devices, where supported. For laptops, do not allow more than 20 failed authentication attempts; for tablets and",
-        "title": "Enforce Automatic Device Lockout on Portable End-",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "16.13",
-        "severity": "",
-        "source_excerpt": "16.13 Alert on Account Login Behavior Deviation Alert when users deviate from normal login behavior, such as time-of-day, workstation location and duration. \u25cf Page 38",
-        "title": "Alert on Account Login Behavior Deviation",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "4.5",
-        "severity": "",
-        "source_excerpt": "4.5 Implement and Manage a Firewall on End-User Devices Implement and manage a host-based firewall or port-filtering tool on end-user devices, with a default-deny rule that drops all traffic except those services and ports that are explicitly allowed.",
-        "title": "Implement and Manage a Firewall on End-User",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "9.4",
-        "severity": "",
-        "source_excerpt": "9.4 Apply Host-based Firewalls or Port Filtering Apply host-based firewalls or port filtering tools on end systems, with a default- deny rule that drops all traffic except those services and ports that are explicitly allowed. \u25cf \u25cf \u25cf",
-        "title": "Apply Host-based Firewalls or Port Filtering",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "3.8",
-        "severity": "",
-        "source_excerpt": "3.8 Document Data Flows Document data flows. Data flow documentation includes service provider data flows and should be based on the enterprise\u2019s data management process. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard.",
-        "title": "Document Data Flows",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "8.2",
-        "severity": "",
-        "source_excerpt": "8.2 Collect Audit Logs Collect audit logs. Ensure that logging, per the enterprise\u2019s audit log management process, has been enabled across enterprise assets. \u25cf \u25cf \u25cf v7",
-        "title": "Collect Audit Logs",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "6.2",
-        "severity": "",
-        "source_excerpt": "6.2 Activate audit logging Ensure that local logging has been enabled on all systems and networking devices. \u25cf \u25cf \u25cf v7",
-        "title": "Activate audit logging",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "6.3",
-        "severity": "",
-        "source_excerpt": "6.3 Enable Detailed Logging Enable system logging to include detailed information such as an event source, date, user, timestamp, source addresses, destination addresses, and other useful elements. \u25cf \u25cf",
-        "title": "Enable Detailed Logging",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "12.6",
-        "severity": "",
-        "source_excerpt": "12.6 Use of Secure Network Management and Communication Protocols Use secure network management and communication protocols (e.g., 802.1X, Wi-Fi Protected Access 2 (WPA2) Enterprise or greater). \u25cf \u25cf",
-        "title": "Use of Secure Network Management and",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "8.4",
-        "severity": "",
-        "source_excerpt": "8.4 Standardize Time Synchronization Standardize time synchronization. Configure at least two synchronized time sources across enterprise assets, where supported. \u25cf \u25cf Page 63",
-        "title": "Standardize Time Synchronization",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "6.7",
-        "severity": "",
-        "source_excerpt": "6.7 Centralize Access Control Centralize access control for all enterprise assets through a directory service or SSO provider, where supported. \u25cf \u25cf v7",
-        "title": "Centralize Access Control",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "8.5",
-        "severity": "",
-        "source_excerpt": "8.5 Collect Detailed Audit Logs Configure detailed audit logging for enterprise assets containing sensitive data. Include event source, date, username, timestamp, source addresses, destination addresses, and other useful elements that could assist in a forensic investigation. \u25cf \u25cf",
-        "title": "Collect Detailed Audit Logs",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
-      },
-      {
-        "audit_command": "",
-        "description": "",
-        "expected_configuration": "",
-        "remediation": "",
-        "rule_id": "8.12",
-        "severity": "",
-        "source_excerpt": "8.12 Collect Service Provider Logs Collect service provider logs, where supported. Example implementations include collecting authentication and authorization events, data creation and disposal events, and user management events. \u25cf",
-        "title": "Collect Service Provider Logs",
-        "check_pattern": "",
-        "required_text": "",
-        "forbidden_text": ""
+        "source_excerpt": "5.3.1 Ensure 'DNSSEC' is Enable on DNS Service (Manual) Profile Applicability: \u2022 Level 1 Description: Enable the \"DNSSEC\" in the DNS Service Configuration. Rationale: Enable DNSSEC Support. DNSSEC is a means of protecting DNS data from attacks which use forged or manipulated DNS data, such as DNS cache poisoning. Audit: In the GUI: - Navigate to Services > DNS Resolver > General DNS Resolver Options",
+        "source_pages": [
+          66
+        ],
+        "title": "Ensure 'DNSSEC' is Enable on DNS Service"
       }
     ],
+    "control_count": 28,
     "metadata": {
-      "raw_text_length": 83052
-    },
-    "control_count": 65
+      "raw_text_length": 80021
+    }
+  },
+  {
+    "id": "bench-88e2dffd7d45",
+    "filename": "CIS_pfSense_Firewall_Benchmark_v1.1.0.pdf",
+    "path": "D:\\prototype\\HexaMinds_SIH2026_Dashboard_UI_v11\\data\\benchmark_uploads\\bench-88e2dffd7d45.pdf",
+    "sha256": "49d1f37fca09ee6cb1558d0ac073a69284930e14d6d6b784659f13ae570a747e",
+    "pages": 92,
+    "status": "ACTIVE",
+    "uploaded_at": "2026-09-28T23:47:40.080165+00:00",
+    "controls": [
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the CLI: Run the following command and verify that output should contain 'Banner' parameter: grep \"^Banner\" /etc/ssh/sshd_config",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "No banner is shown by default.",
+        "description": "Before authentication is allowed, a file containing its contents must be provided to the remote user, as specified by the Banner argument.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Banners are used to inform users who are connected of the specific site's connection rules. The prosecution of computer system intruders may be aided by the display of a warning message prior to the normal user login.",
+        "references": [],
+        "remediation": "In the CLI: Edit the /etc/ssh/sshd_config file to set the parameter as follows: Banner /etc/issue.net",
+        "required_text": "",
+        "rule_id": "1.1",
+        "source_excerpt": "1.1 Ensure SSH warning banner is configured (Manual) Profile Applicability: \u2022 Level 1 Description: Before authentication is allowed, a file containing its contents must be provided to the remote user, as specified by the Banner argument. Rationale: Banners are used to inform users who are connected of the specific site's connection rules. The prosecution of computer system intruders may be aided by the display of a warning message prior to the normal user login. Audit:",
+        "source_pages": [
+          13
+        ],
+        "title": "Ensure SSH warning banner is configured"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI. - Navigate to Services > Auto Config Backup.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Disabled",
+        "description": "Making a backup before and after each large change or series of changes, as well as after each little change, is the recommended practice. A first backup is typically prepared in case the change being done has unfavorable repercussions.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "An after-the-fact backup is taken after evaluating the change and ensuring it had the intended outcome. Periodic backups are also helpful, regardless of changes, especially in cases where a manual backup may be missed.",
+        "references": [
+          "1. https://docs.netgate.com/pfsense/en/latest/backup/autoconfigbackup.html"
+        ],
+        "remediation": "In the GUI. - Navigate to Services > Auto Config Backup. - CLIck the Setting at the top. - Check on the Enable ACB. - CLIck Save",
+        "required_text": "",
+        "rule_id": "1.2",
+        "source_excerpt": "1.2 Ensure AutoConfigBackup is enable (Manual) Profile Applicability: \u2022 Level 1 Description: Making a backup before and after each large change or series of changes, as well as after each little change, is the recommended practice. A first backup is typically prepared in case the change being done has unfavorable repercussions. Rationale: An after-the-fact backup is taken after evaluating the change and ensuring it had the intended outcome. Periodic backups are also helpful, regardless of changes, especially in cases where a manual backup may be missed.",
+        "source_pages": [
+          15
+        ],
+        "title": "Ensure AutoConfigBackup is enable"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In pfSense Shell type: cat /etc/motd",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "[2.5.0-RELEASE][admin@pfSense.home.arpa]/root: cat /etc/motd FreeBSD ?.?.? (UNKNOWN) Welcome to FreeBSD! Release Notes, Errata: https://www.FreeBSD.org/releases/ Security Advisories: https://www.FreeBSD.org/security/ FreeBSD Handbook: https://www.FreeBSD.org/handbook/ FreeBSD FAQ: https://www.FreeBSD.org/faq/ Questions List: https://lists.FreeBSD.org/mailman/listinfo/freebsd-questions/ FreeBSD Forums: https://forums.FreeBSD.org/ Documents installed with the system are in the /usr/local/share/doc/freebsd/ directory, or can be installed later with: pkg install en-freebsd-doc For other languages, replace \"en\" with a language code like de or fr. Show the version of FreeBSD installed: freebsd-version ; uname -a Please include that output and any error messages when posting questions. Introduction to manual pages: man man FreeBSD directory layout: man hier Edit /etc/motd to change this login announcement. [2.5.0-RELEASE][admin@pfSense.home.arpa]/root:",
+        "description": "Sets the MOTD message.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Network banners are electronic messages that provide notice of legal rights to users of computer networks. From a legal standpoint, banners have four primary functions. \u2022 First, banners may be used to generate consent to real-time monitoring under Title III. \u2022 Second, banners may be used to generate consent to the retrieval of stored files and records pursuant to ECPA. \u2022 Third, in the case of government networks, banners may eliminate any Fourth Amendment \"reasonable expectation of privacy\" that government employees or other users might otherwise retain in their use of the government's network under O'Connor v.",
+        "references": [],
+        "remediation": "In pfSense Shell: Type 'Message Of The Day (MOTD)' message here vi /etc/motd",
+        "required_text": "",
+        "rule_id": "1.3",
+        "source_excerpt": "1.3 Ensure 'Message Of The Day (MOTD)' is set (Manual) Profile Applicability: \u2022 Level 1 Description: Sets the MOTD message. Rationale: Network banners are electronic messages that provide notice of legal rights to users of computer networks. From a legal standpoint, banners have four primary functions. \u2022 First, banners may be used to generate consent to real-time monitoring under Title III. \u2022 Second, banners may be used to generate consent to the retrieval of stored files",
+        "source_pages": [
+          17,
+          18
+        ],
+        "title": "Ensure 'Message Of The Day (MOTD)' is set"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the CLI: hostname In the GUI: - Navigate to System > General Setup - Check the Hostname Field",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "pfSense",
+        "description": "Changes the device default hostname.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The device hostname is crucial for asset inventory and identification as a security need, as well as for the deployment of public keys and certificates and for comparing logs from various systems while handling an issue.",
+        "references": [
+          "1. https://docs.netgate.com/pfsense/en/latest/config/general.html"
+        ],
+        "remediation": "In the GUI: - Navigate to System > General Setup - Update the field 'Hostname' with the new hostname, and CLIck \"Save\"",
+        "required_text": "",
+        "rule_id": "1.4",
+        "source_excerpt": "1.4 Ensure Hostname is set (Manual) Profile Applicability: \u2022 Level 1 Description: Changes the device default hostname. Rationale: The device hostname is crucial for asset inventory and identification as a security need, as well as for the deployment of public keys and certificates and for comparing logs from various systems while handling an issue. Audit: In the CLI:",
+        "source_pages": [
+          19,
+          20
+        ],
+        "title": "Ensure Hostname is set"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > General Setup - Check the 'DNS Servers' Field in 'DNS Server Settings' table",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "By default it will be blank, unless the dynamic WAN type of DHCP is enabled then your ISP may assign these.",
+        "description": "You must specify the main DNS server for your system in order to enable DNS lookups. Additionally, supplementary and third-party DNS servers can be specified. The system uses the main name server to resolve host names. The system examines the secondary name server, and if required, the tertiary, if a failure or time-out occurs.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The purpose is to perform the resolution of system hostnames to Internet Protocol (IP) addresses.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > General Setup - Update the field DNS Servers' with the Your DNS Server, and CLIck \"Save\"",
+        "required_text": "",
+        "rule_id": "1.5",
+        "source_excerpt": "1.5 Ensure DNS server is configured (Manual) Profile Applicability: \u2022 Level 1 Description: You must specify the main DNS server for your system in order to enable DNS lookups. Additionally, supplementary and third-party DNS servers can be specified. The system uses the main name server to resolve host names. The system examines the secondary name server, and if required, the tertiary, if a failure or time-out occurs. Rationale: The purpose is to perform the resolution of system hostnames to Internet Protocol (IP) addresses.",
+        "source_pages": [
+          21
+        ],
+        "title": "Ensure DNS server is configured"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the CLI: cat /etc/sysctl.conf check below entries: \u2022 net.ipv6.conf.all.disable_ipv6=1 \u2022 net.ipv6.conf.default.disable_ipv6=1 \u2022 net.ipv6.conf.lo.disable_ipv6 = 1 In the GUI: Navigate to System > Advanced > Networking Check if 'Allow IPv6' is checked.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In the GUI: System > Advanced > Networking 'Allow IPv6' is checked.",
+        "description": "Although IPv6 has many advantages over IPv4, not all organizations have IPv6 or dual stack configurations implemented.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "If IPv6 or dual stack is not to be used, it is recommended that IPv6 be disabled to reduce the attack surface of the system.",
+        "references": [],
+        "remediation": "In the CLI: Add below in the `/etc/sysctl.conf` file and reboot. - net.ipv6.conf.all.disable_ipv6=1 - net.ipv6.conf.default.disable_ipv6=1 - net.ipv6.conf.lo.disable_ipv6 = 1 In the GUI: Navigate to System > Advanced > Networking Uncheck 'Allow IPv6'",
+        "required_text": "",
+        "rule_id": "1.6",
+        "source_excerpt": "1.6 Ensure IPv6 is disabled if not used (Manual) Profile Applicability: \u2022 Level 1 Description: Although IPv6 has many advantages over IPv4, not all organizations have IPv6 or dual stack configurations implemented. Rationale: If IPv6 or dual stack is not to be used, it is recommended that IPv6 be disabled to reduce the attack surface of the system. Audit: In the CLI:",
+        "source_pages": [
+          22,
+          23
+        ],
+        "title": "Ensure IPv6 is disabled if not used"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI - Navigate to System > Advance - Check the 'DNS Rebind Check' Field",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "By default the 'DNS Rebind Check' is unchecked.",
+        "description": "Ensure that the 'DNS Rebind Check' feature is unchecked to protect against DNS rebinding attacks.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Attackers can use DNS rebinding to exploit a DNS server's response to a domain name query that resolves to a private IP address. This could provide a hacker access to private network resources that shouldn't be made available to the general public. To defend against this kind of attack, pfSense's \"DNS Rebind Check\" function disables private IP responses from DNS servers. As advised in the CIS benchmark, disabling this feature would expose the system to DNS rebinding attacks.",
+        "references": [],
+        "remediation": "In the GUI - Navigate to System > Advance - Uncheck on 'DNS Rebind Check' Field",
+        "required_text": "",
+        "rule_id": "1.7",
+        "source_excerpt": "1.7 Ensure 'DNS Rebind Check' is unchecked (Manual) Profile Applicability: \u2022 Level 1 Description: Ensure that the 'DNS Rebind Check' feature is unchecked to protect against DNS rebinding attacks. Rationale: Attackers can use DNS rebinding to exploit a DNS server's response to a domain name query that resolves to a private IP address. This could provide a hacker access to private network resources that shouldn't be made available to the general public. To defend against this kind of attack, pfSense's \"DNS Rebind Check\" function disables",
+        "source_pages": [
+          24
+        ],
+        "title": "Ensure 'DNS Rebind Check' is unchecked"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > Advance > Admin Access - Check the 'webConfigurator' Table for HTTPS Enable.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In the GUI: System > Advanced > Admin Access 'Protocol' will be 'HTTPS (SSL/TLS)'",
+        "description": "Web Admin Management Portal should only be accessed using HTTPS Protocol.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "HTTP transmits all data (including passwords) in clear text over the network and provides no assurance of the identity of the hosts involved. Because of this HTTP should never be used for sensitive tasks such as managing network devices or entering login credentials and HTTPS should be configured for Web Portal Management instead",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > Advanced > Admin Access - Select 'HTTPS' in the 'webConfigurator'. - CLIck 'Save'",
+        "required_text": "",
+        "rule_id": "1.8",
+        "source_excerpt": "1.8 Ensure Web Management is Set to use HTTPS (Manual) Profile Applicability: \u2022 Level 1 Description: Web Admin Management Portal should only be accessed using HTTPS Protocol. Rationale: HTTP transmits all data (including passwords) in clear text over the network and provides no assurance of the identity of the hosts involved. Because of this HTTP should never be used for sensitive tasks such as managing network devices or entering login credentials and HTTPS should be configured for Web Portal Management instead Audit:",
+        "source_pages": [
+          25
+        ],
+        "title": "Ensure Web Management is Set to use HTTPS"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > High Avail. Sync - Check \"Synchronize Config to IP\" is configured.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "All fields are blank",
+        "description": "Ensure a High Availability peer is fully synchronized and in a passive or active state.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "To ensure availability of both the firewall and the resources it protects, a High Availability peer is required. In the event a single firewall fails, or when maintenance such as a software update is required, the HA peer can be used to automatically fail over session states and maintain overall availability",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > High Avail. Sync - Setup each field and Hit Save",
+        "required_text": "",
+        "rule_id": "1.9",
+        "source_excerpt": "1.9 Ensure a synchronized High Availability peer is configured Profile Applicability: \u2022 Level 1 Description: Ensure a High Availability peer is fully synchronized and in a passive or active state. Rationale: To ensure availability of both the firewall and the resources it protects, a High Availability peer is required. In the event a single firewall fails, or when maintenance such as a software update is required, the HA peer can be used to automatically fail over session states and maintain overall availability Audit:",
+        "source_pages": [
+          27
+        ],
+        "title": "Ensure a synchronized High Availability peer is configured"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to System > User Manager - CLIck the Setting at the top. - Check on the 'Session Timeout' field.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Username listed will be: 'admin'",
+        "description": "The session inactivity timeout setting represents the amount of time a user can be inactive before the user's session times out and closes. It only affects user browser sessions.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Indefinite or even long session timeout window increase the risk of attackers abusing abandoned sessions",
+        "references": [],
+        "remediation": "In GUI: - Navigate to System > User Manager - CLIck the Setting at the top. - set 10 in the 'Session Timeout' field. - CLIck Save",
+        "required_text": "",
+        "rule_id": "2.1",
+        "source_excerpt": "2.1 Ensure Sessions Timeout is set to less than or equal to 10 Profile Applicability: \u2022 Level 1 Description: The session inactivity timeout setting represents the amount of time a user can be inactive before the user's session times out and closes. It only affects user browser sessions. Rationale: Indefinite or even long session timeout window increase the risk of attackers abusing abandoned sessions Audit:",
+        "source_pages": [
+          29
+        ],
+        "title": "Ensure Sessions Timeout is set to less than or equal to 10 Minutes"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > User Manager. - CLIck the Authentication Servers at the top. - Check \"Authentication Servers\" Setting",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8 5.6 Centralize Account Management",
+          "Centralize account management through a directory or identity service. \u25cf \u25cf",
+          "v7"
+        ],
+        "default_value": "'Server Name' will be 'Local Database'",
+        "description": "Configured the LDAP Servers or Radius server for central authentication.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Authentication, authorization and accounting (AAA) scheme provide an authoritative source for managing and monitoring access for devices.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > User Manager. - CLIck the Authentication Servers at the top. - Configure \"Authentication Servers\" Setting",
+        "required_text": "",
+        "rule_id": "2.2",
+        "source_excerpt": "2.2 Ensure LDAP or RADIUS server configured (Manual) Profile Applicability: \u2022 Level 1 Description: Configured the LDAP Servers or Radius server for central authentication. Rationale: Authentication, authorization and accounting (AAA) scheme provide an authoritative source for managing and monitoring access for devices. Audit: In the GUI: - Navigate to System > User Manager.",
+        "source_pages": [
+          31
+        ],
+        "title": "Ensure LDAP or RADIUS server configured"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > Advanced > Admin Access. - Check \"Console Options\" Setting",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "'Console menu' will be unchecked",
+        "description": "Set the Console Menu to password protected.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "An unattended computer with an open Console Menu session to the device could allow an unauthorized user access to the firewall\u2019s management.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > Advanced > Admin Access. - Set \"Console Options\" Setting - CLIck \"Save\"",
+        "required_text": "",
+        "rule_id": "2.3",
+        "source_excerpt": "2.3 Ensure Console Menu is Password Protected (Manual) Profile Applicability: \u2022 Level 1 Description: Set the Console Menu to password protected. Rationale: An unattended computer with an open Console Menu session to the device could allow an unauthorized user access to the firewall\u2019s management. Audit: In the GUI: - Navigate to System > Advanced > Admin Access.",
+        "source_pages": [
+          32
+        ],
+        "title": "Ensure Console Menu is Password Protected"
+      },
+      {
+        "additional_information": "The known default accounts are often (without limiting to) the following: 'admin', 'guest', 'user', 'root', 'administrator', 'operator', 'supervisor', and 'demo'. It is important to change the passwords of these accounts to prevent attackers from using them to gain unauthorized access to the system. The use of strong, unique passwords for all user accounts is also recommended to further enhance security.",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to System > User Manager > Users - View the default users",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "The only default user is the \"admin\" user.",
+        "description": "Disable the known default accounts configured. Note: The default admin account must remain enabled for high availability synchronization to work. Disabling it could cause issues.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Default accounts are accounts with predefined usernames and passwords that are typically included with software and hardware devices. Attackers often target default accounts because they are widely known and can be used to gain unauthorized access to a system. To prevent unauthorized access, all default accounts should either be disabled or have their passwords changed.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to System > User Manager > Users - Remove any default users that are not used. Note: The default admin account must remain enabled for high availability synchronization to work. Disabling it could cause issues.",
+        "required_text": "",
+        "rule_id": "2.4",
+        "source_excerpt": "2.4 Ensure all default accounts are either disabled or utilize strong Profile Applicability: \u2022 Level 1 Description: Disable the known default accounts configured. Note: The default admin account must remain enabled for high availability synchronization to work. Disabling it could cause issues. Rationale: Default accounts are accounts with predefined usernames and passwords that are typically included with software and hardware devices. Attackers often target default accounts because they are widely known and can be used to gain unauthorized access",
+        "source_pages": [
+          33,
+          34
+        ],
+        "title": "Ensure all default accounts are either disabled or utilize strong passwords"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Need to manually check each account.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "Disable the 'Local User' account except for the admin user.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Local accounts pose a threat to system security since the users are not manageable from the LDAP server.",
+        "references": [],
+        "remediation": "Disabled Local User Account.",
+        "required_text": "",
+        "rule_id": "3.1",
+        "source_excerpt": "3.1 Ensure 'Local Account status' is set to 'Disabled' (Manual) Profile Applicability: \u2022 Level 1 Description: Disable the 'Local User' account except for the admin user. Rationale: Local accounts pose a threat to system security since the users are not manageable from the LDAP server. Audit: Need to manually check each account. Remediation:",
+        "source_pages": [
+          36
+        ],
+        "title": "Ensure 'Local Account status' is set to 'Disabled'"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > Advanced - Check the 'Login Protection' > 'Threshold' Field",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "The Login Protection Threshold is a score-based system that helps to prevent unauthorized access to the pfSense firewall. This score is based on various criteria, including the number of unsuccessful login attempts from a specific IP address. This control ensures that the Login Protection Threshold is set to a value of 30 or less.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Setting the Login Protection Threshold to a value of 30 or less helps to prevent attackers from brute-forcing their way into the system. The default value is 30, and this is a reasonable value for most situations. By limiting the number of unsuccessful login attempts, the system can protect against unauthorized access and improve security.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > Advanced - Set 30 in the 'Login Protection' > 'Threshold' Field - CLIck 'Save'",
+        "required_text": "",
+        "rule_id": "3.2",
+        "source_excerpt": "3.2 Ensure Login Protection Threshold is set to 30 or less Profile Applicability: \u2022 Level 1 Description: The Login Protection Threshold is a score-based system that helps to prevent unauthorized access to the pfSense firewall. This score is based on various criteria, including the number of unsuccessful login attempts from a specific IP address. This control ensures that the Login Protection Threshold is set to a value of 30 or less. Rationale: Setting the Login Protection Threshold to a value of 30 or less helps to prevent attackers from brute-forcing their way into the system. The default value is 30, and this",
+        "source_pages": [
+          37
+        ],
+        "title": "Ensure Login Protection Threshold is set to 30 or less"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to System > Advanced > Admin Access - Check the 'Login Protection' options. - Check 'Blocktime' value is greater than 300 seconds.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v7"
+        ],
+        "default_value": "'Blocktime' will be blank",
+        "description": "Account password lockout >= 300 seconds. Allow access again after a user has been locked out (due to failed login attempts). The user is allowed access after the configured time if there have been no login attempts during that time).",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 2"
+        ],
+        "rationale": "the Allow access again after the time setting determines the number of seconds.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to System > Advanced > Admin Access - set the 'Login Protection' options. - set 'Blocktime' value to 300. - CLIck Save",
+        "required_text": "",
+        "rule_id": "3.3",
+        "source_excerpt": "3.3 Ensure Allow access again after time is set to 300 or more Profile Applicability: \u2022 Level 2 Description: Account password lockout >= 300 seconds. Allow access again after a user has been locked out (due to failed login attempts). The user is allowed access after the configured time if there have been no login attempts during that time). Rationale: the Allow access again after the time setting determines the number of seconds. Audit: In GUI:",
+        "source_pages": [
+          39
+        ],
+        "title": "Ensure Allow access again after time is set to 300 or more second"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Try to login to the GUI with: Username: admin Password: pfsense",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default Values: User: admin Password: pfsense",
+        "description": "To assist users in changing the default password for 'admin' account.",
+        "forbidden_text": "",
+        "impact": "Failing to change the default 'admin' account's password creates high risk to the system as the 'admin' account may be abused by unauthorized users, allowing them full root access to the system.",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Using default passwords for the 'admin' account could cause a compromise to the system.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > User Manager - CLIck the Pencil Icon under 'Actions' - Change the password of the default 'admin' user account. - CLIck 'Save' at the bottom of the page.",
+        "required_text": "",
+        "rule_id": "3.4",
+        "source_excerpt": "3.4 Ensure default password of admin is changed (Manual) Profile Applicability: \u2022 Level 1 Description: To assist users in changing the default password for 'admin' account. Rationale: Using default passwords for the 'admin' account could cause a compromise to the system. Impact: Failing to change the default 'admin' account's password creates high risk to the system as the 'admin' account may be abused by unauthorized users, allowing them full root",
+        "source_pages": [
+          40,
+          41
+        ],
+        "title": "Ensure default password of admin is changed"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Verify there are no allowed rules present in the firewall which has Any used in the Destination field In CLI: pfctl -sr",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default \"Allow Any\" rule to prevent lockout. Default \"Allow Any\" rules on LAN Interfaces to allow network connectivity within the LAN.",
+        "description": "The Firewall Rules with Any in Source field allows all the IP Addresses of the Network to access the specified destination configured in the Firewall rules for specific services.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "In any properly designed and implemented Milner Firewall architecture the connection that loads the service should be explicitly allowed from the IP source address to the specific IP destination address. This services abolishes the chances of an exploit because of service misconfigurations.",
+        "references": [],
+        "remediation": "Delete or Disable the rule from the firewall which has Any used in the Destination field.",
+        "required_text": "",
+        "rule_id": "4.1.1",
+        "source_excerpt": "4.1.1 Ensure no Allow Rule with Any in Destination Field present Profile Applicability: \u2022 Level 1 Description: The Firewall Rules with Any in Source field allows all the IP Addresses of the Network to access the specified destination configured in the Firewall rules for specific services. Rationale: In any properly designed and implemented Milner Firewall architecture the connection that loads the service should be explicitly allowed from the IP source address to the specific IP destination address. This services abolishes the chances of an exploit because of service misconfigurations.",
+        "source_pages": [
+          44
+        ],
+        "title": "Ensure no Allow Rule with Any in Destination Field present in the Firewall Rules"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Verify there are no allowed rules present in the firewall which has Any used in the Source field. If there is any such rule present in the firewall, it should have a business justification and also it should be documented In CLI: pfctl -sr",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default \"Allow Any\" rule to prevent lockout. Default \"Allow Any\" rules on LAN Interfaces to allow network connectivity within the LAN.",
+        "description": "The Firewall Rules with Any in the Destination field allows accessing all the IP Addresses of Network from specified Sources configured in the Firewall rules for specific services",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Ideally, the traffic should be explicitly allowed from the specific Source to specific Destination for the required services. This provides better control over the traffic passes through the firewall and reduce the chances of an exploit because of service misconfiguration.",
+        "references": [],
+        "remediation": "Delete the rule from the firewall which has Any used in the Source field.",
+        "required_text": "",
+        "rule_id": "4.1.2",
+        "source_excerpt": "4.1.2 Ensure no Allow Rule with Any in Source field present in the Profile Applicability: \u2022 Level 1 Description: The Firewall Rules with Any in the Destination field allows accessing all the IP Addresses of Network from specified Sources configured in the Firewall rules for specific services Rationale: Ideally, the traffic should be explicitly allowed from the specific Source to specific Destination for the required services. This provides better control over the traffic passes through the firewall and reduce the chances of an exploit because of service",
+        "source_pages": [
+          46
+        ],
+        "title": "Ensure no Allow Rule with Any in Source field present in the Firewall Rules"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Verify there are no allowed rules present in the firewall which has Any used in the Service field. In CLI: pfctl -sr",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default \"Allow Any\" rule to prevent lockout. Default \"Allow Any\" rules on LAN Interfaces to allow network connectivity within the LAN.",
+        "description": "The Firewall Rules with Any in the Service field allows accessing all the Services from specified Source to specified Destination configured in the Firewall rules.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Many services, including telnet, FTP, and TFTP, have security problems. Attackers can utilize these services to their advantage in order to access computers, obtain credentials, or launch DoS attacks. These services must be set up in accordance with the requirements of the company.",
+        "references": [],
+        "remediation": "Delete the rule from the firewall which has Any used in the Service field.",
+        "required_text": "",
+        "rule_id": "4.1.3",
+        "source_excerpt": "4.1.3 Ensure no Allow Rule with Any in Services field present in Profile Applicability: \u2022 Level 1 Description: The Firewall Rules with Any in the Service field allows accessing all the Services from specified Source to specified Destination configured in the Firewall rules. Rationale: Many services, including telnet, FTP, and TFTP, have security problems. Attackers can utilize these services to their advantage in order to access computers, obtain credentials, or launch DoS attacks. These services must be set up in accordance with the requirements of the company.",
+        "source_pages": [
+          48
+        ],
+        "title": "Ensure no Allow Rule with Any in Services field present in the Firewall Rules"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "Review all Firewall policies for use and validate the purpose of the policy.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "Ensure that there are no firewall policies that are unused",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Unused policies may provide unintended or anticipated access to services or hosts.",
+        "references": [],
+        "remediation": "Disable and then delete any unused firewall policies.",
+        "required_text": "",
+        "rule_id": "4.1.4",
+        "source_excerpt": "4.1.4 Ensure there are no Unused Policies (Manual) Profile Applicability: \u2022 Level 1 Description: Ensure that there are no firewall policies that are unused Rationale: Unused policies may provide unintended or anticipated access to services or hosts. Audit: Review all Firewall policies for use and validate the purpose of the policy. Remediation: Disable and then delete any unused firewall policies.",
+        "source_pages": [
+          50
+        ],
+        "title": "Ensure there are no Unused Policies"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to Status > System Logs > Settings - Verify Desired Logging Options are enabled",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "The following log options are enabled by default: Log firewall default blocks: \u2022 Log packets matched from the default block rules in the ruleset \u2022 Log packets blocked by 'Block Bogon Networks' rules \u2022 Log packets blocked by 'Block Private Networks' rules Web Server Log: \u2022 Log errors from the web server process Log Configuration Changes: \u2022 Generate log entries when making changes to the configuration.",
+        "description": "Ensure all firewall rules have logging enable.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The event log of firewall rules helps in identifying the allowed and blocked traffic and also helps in troubleshooting and forensic investigation. It is always good to enable logging for all the firewall rules, but by logging multiple firewall rules results in a huge log files, which requires huge disk space and management operations. Logs play an important role in security auditing, incident response, system maintenance and forensic investigation, and should be configured as per the business needs.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to Status > System Logs > Settings - Check Desired Logging Options to enable.",
+        "required_text": "",
+        "rule_id": "4.1.5",
+        "source_excerpt": "4.1.5 Ensure Logging is Enable for All Firewall Rules (Manual) Profile Applicability: \u2022 Level 1 Description: Ensure all firewall rules have logging enable. Rationale: The event log of firewall rules helps in identifying the allowed and blocked traffic and also helps in troubleshooting and forensic investigation. It is always good to enable logging for all the firewall rules, but by logging multiple firewall rules results in a huge log files, which requires huge disk space and management operations. Logs play an important role in security auditing, incident response, system maintenance and forensic",
+        "source_pages": [
+          51,
+          52
+        ],
+        "title": "Ensure Logging is Enable for All Firewall Rules"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to Firewall > Rules - Review the firewall rules to determine if any ICMP request rules are present. - Review the firewall rules to determine if any ICMP request rules are present. - Check the configured ICMP request types for each rule to ensure that only necessary types are allowed",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "",
+        "description": "ICMP (Internet Control Message Protocol) is used by network devices to communicate with each other. While ICMP is essential for network management and troubleshooting, allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood and ICMP Redirect. Therefore, it is recommended to securely configure the allowed types of ICMP requests on the firewall.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood and ICMP Redirect. To mitigate these risks, it is recommended to securely configure the allowed types of ICMP requests on the firewall.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to Firewall > Rules - Review the firewall rules to determine if any ICMP request rules are present. - Review the firewall rules to determine if any ICMP request rules are present. - Check the configured ICMP request types for each rule to ensure that only necessary types are allowed",
+        "required_text": "",
+        "rule_id": "4.1.6",
+        "source_excerpt": "4.1.6 Ensure ICMP Request is securely configured (Manual) Profile Applicability: \u2022 Level 1 Description: ICMP (Internet Control Message Protocol) is used by network devices to communicate with each other. While ICMP is essential for network management and troubleshooting, allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood and ICMP Redirect. Therefore, it is recommended to securely configure the allowed types of ICMP requests on the firewall. Rationale: Allowing all types of ICMP requests may increase the risk of attacks such as Ping Flood",
+        "source_pages": [
+          53,
+          54
+        ],
+        "title": "Ensure ICMP Request is securely configured"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to Services > SNMP. - Check \"SNMP Traps Enable\" is enabled. - Check on the \"SNMP Trap Settings\" is configured.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In GUI: - Under 'SNMP Daemon Settings' - 'Enable' box will not be checked.",
+        "description": "Enables SNMP traps receivers where traps are sent.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS or SNMP traps receivers and should be enabled in order to be sent and processed by the NMS. The NMS or SNMP traps receivers will then provide a comprehensive aggregation and reporting of events generated, thus helping the administrator. Additionally, the add on package NET-SNMP (when configured appropriately) can satisfy this as well.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to Services > SNMP. - Check \"SNMP Traps Enable\" is enable. - Configured the \"SNMP Trap Settings\" value. - CLIck Save",
+        "required_text": "",
+        "rule_id": "5.1.1",
+        "source_excerpt": "5.1.1 Ensure SNMP traps receivers is set (Manual) Profile Applicability: \u2022 Level 1 Description: Enables SNMP traps receivers where traps are sent. Rationale: The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS or SNMP traps receivers and should be enabled in order to be sent and processed by the NMS. The NMS or SNMP traps receivers will then provide a comprehensive aggregation and reporting of",
+        "source_pages": [
+          57,
+          58
+        ],
+        "title": "Ensure SNMP traps receivers is set"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "IN GUI: - Navigate to Services > SNMP. - Check \"SNMP Traps Enable\" is enabled.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "In GUI: - Under 'SNMP Daemon Settings' - 'Enable' box will not be checked.",
+        "description": "Enables SNMP traps to be sent to the Network Management Station (NMS)",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS and should be enabled in order to be sent and processed by the NMS. The NMS will then provide a comprehensive aggregation and reporting of events generated, thus helping the administrator.",
+        "references": [],
+        "remediation": "IN GUI: - Navigate to Services > SNMP. - set checkbox \"SNMP Traps Enable\". - CLIck on Save",
+        "required_text": "",
+        "rule_id": "5.1.2",
+        "source_excerpt": "5.1.2 Ensure SNMP traps is enabled (Manual) Profile Applicability: \u2022 Level 1 Description: Enables SNMP traps to be sent to the Network Management Station (NMS) Rationale: The purpose of the SNMP service is to monitor in real-time the events occurring on systems in order to meet the security requirement of the availability of systems and services. The traps are SNMP notifications sent to the NMS and should be enabled in order to be sent and processed by the NMS. The NMS will then provide a comprehensive aggregation and reporting of events generated, thus helping the",
+        "source_pages": [
+          59
+        ],
+        "title": "Ensure SNMP traps is enabled"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "\u2022 Check if the NET-SNMP package is installed on pfSense. \u2022 Verify that SNMPv3 is enabled and configured with strong encryption and authentication settings. \u2022 Verify that SNMP access is restricted to authorized hosts only. \u2022 Verify that default community strings have been removed or changed.",
+        "check_pattern": "",
+        "cis_controls": [],
+        "default_value": "",
+        "description": "The add-on package NET-SNMP provides Simple Network Management Protocol (SNMP) functionality on pfSense. SNMP is used for network management and monitoring, allowing administrators to collect and view information about devices on the network. This rule ensures that the NET-SNMP package is installed and securely configured.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 2"
+        ],
+        "rationale": "SNMP is a widely used protocol for network management and monitoring, and it is important to ensure that it is securely configured on pfSense. If SNMP is not properly secured, it can allow unauthorized access to network devices and sensitive information. By ensuring that the NET-SNMP package is installed and configured securely, administrators can monitor network devices while also maintaining the security of their network.",
+        "references": [],
+        "remediation": "",
+        "required_text": "",
+        "rule_id": "5.1.3",
+        "source_excerpt": "5.1.3 Ensure that the add-on package NET-SNMP is installed and Profile Applicability: \u2022 Level 2 Description: The add-on package NET-SNMP provides Simple Network Management Protocol (SNMP) functionality on pfSense. SNMP is used for network management and monitoring, allowing administrators to collect and view information about devices on the network. This rule ensures that the NET-SNMP package is installed and securely configured. Rationale: SNMP is a widely used protocol for network management and monitoring, and it is",
+        "source_pages": [
+          61
+        ],
+        "title": "Ensure that the add-on package NET-SNMP is installed and configured securely"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to Services > NTP - verify the 'Enable NTP Server' Field",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default value is 'NTP Server Configuration' - 'Enable' will be checked",
+        "description": "Sets the local time zone information so that the device's time display is more accurate for viewers.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "The device's time setting needs to be accurate for two reasons in particular. The first is that digital certificates use this time to compare the validity period they specify in their Valid From and Valid To fields to a range of times. The second justification is the need for accurate time stamps when logging data. When doing packet captures, delivering messages to a Syslog server, SNMP monitoring stations, or other tasks, timestamps are only meaningful if you can be certain of their accuracy.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to Services > NTP - Checked the 'Enable NTP Server' Field - CLIck 'Save'",
+        "required_text": "",
+        "rule_id": "5.2.1",
+        "source_excerpt": "5.2.1 Ensure time zone is properly configured (Manual) Profile Applicability: \u2022 Level 1 Description: Sets the local time zone information so that the device's time display is more accurate for viewers. Rationale: The device's time setting needs to be accurate for two reasons in particular. The first is that digital certificates use this time to compare the validity period they specify in their Valid From and Valid To fields to a range of times. The second justification is the need for accurate time stamps when logging data. When doing packet captures, delivering",
+        "source_pages": [
+          63
+        ],
+        "title": "Ensure time zone is properly configured"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to Services > DNS Resolver > General DNS Resolver Options - Verify if \"DNSSEC\" is checked or not.",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "The DNS Resolver is enabled by default.",
+        "description": "Enable the \"DNSSEC\" in the DNS Service Configuration.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Enable DNSSEC Support. DNSSEC is a means of protecting DNS data from attacks which use forged or manipulated DNS data, such as DNS cache poisoning.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to Services > DNS Resolver > General DNS Resolver Options - Check the box next to 'DNSSEC' and set Enable - CLIck 'Save'",
+        "required_text": "",
+        "rule_id": "5.3.1",
+        "source_excerpt": "5.3.1 Ensure 'DNSSEC' is Enable on DNS Service (Manual) Profile Applicability: \u2022 Level 1 Description: Enable the \"DNSSEC\" in the DNS Service Configuration. Rationale: Enable DNSSEC Support. DNSSEC is a means of protecting DNS data from attacks which use forged or manipulated DNS data, such as DNS cache poisoning. Audit: In the GUI: - Navigate to Services > DNS Resolver > General DNS Resolver Options",
+        "source_pages": [
+          66
+        ],
+        "title": "Ensure 'DNSSEC' is Enable on DNS Service"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In the GUI: - Navigate to System > User Manager. - CLIck the Authentication Servers at the top. - Check 'Authentication Servers' Setting",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "Default Authentication Servers is: 'Local Database'",
+        "description": "Set backed authentication for VPN User to LDAP server. Configured the LDAP Servers server for central authentication.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Authentication, authorization and accounting (AAA) scheme provide an authoritative source for managing and monitoring access for devices.",
+        "references": [],
+        "remediation": "In the GUI: - Navigate to System > User Manager. - CLIck the Authentication Servers at the top. - Configure 'Authentication Servers' Setting",
+        "required_text": "",
+        "rule_id": "5.4.1",
+        "source_excerpt": "5.4.1 Ensure RADIUS or LDAP are being used for VPN Profile Applicability: \u2022 Level 1 Description: Set backed authentication for VPN User to LDAP server. Configured the LDAP Servers server for central authentication. Rationale: Authentication, authorization and accounting (AAA) scheme provide an authoritative source for managing and monitoring access for devices. Audit: In the GUI:",
+        "source_pages": [
+          68
+        ],
+        "title": "Ensure RADIUS or LDAP are being used for VPN Authentication"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to System > Cert. Manager > CAs - Check the 'Issuer' Column",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "There are no default certificates.",
+        "description": "Apply a signed certificate from a trusted Certificate Authority (CA) to the SSL VPN portal to allow users to connect securely with confidence.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Having an unsigned or self signed certificate leaves connections open to man-in-the middle attacks and could allow users to connect to untrusted servers.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to System > Cert. Manager > CAs - CLIck \"Add\" - In \"Method\" use the 'Import an existing Certificate Authority' - Fill Textbox and Hit save.",
+        "required_text": "",
+        "rule_id": "5.4.2",
+        "source_excerpt": "5.4.2 Apply a Trusted Signed Certificate for VPN Portal (Manual) Profile Applicability: \u2022 Level 1 Description: Apply a signed certificate from a trusted Certificate Authority (CA) to the SSL VPN portal to allow users to connect securely with confidence. Rationale: Having an unsigned or self signed certificate leaves connections open to man-in-the middle attacks and could allow users to connect to untrusted servers. Audit: In GUI:",
+        "source_pages": [
+          69
+        ],
+        "title": "Apply a Trusted Signed Certificate for VPN Portal"
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "",
+        "check_pattern": "",
+        "cis_controls": [],
+        "default_value": "",
+        "description": "Configure OpenVPN to use TLS encryption for secure communication with CLIents and servers.",
+        "forbidden_text": "",
+        "impact": "",
+        "profile": [
+          "\u2022 Level 2"
+        ],
+        "rationale": "",
+        "references": [],
+        "remediation": "In GUI \u2022 Open the pfSense web interface and navigate to VPN > OpenVPN. \u2022 CLIck on the server configuration you want to configure. \u2022 Under the \"Cryptographic Settings\" section, set the \"TLS Configuration\" option to \"Enable\". \u2022 Choose the appropriate TLS key length, key direction, and digest algorithm. \u2022 CLIck \"Save\" to save the changes.",
+        "required_text": "",
+        "rule_id": "5.4.3",
+        "source_excerpt": "5.4.3 Ensure that OpenVPN is configured to use TLS encryption Profile Applicability: \u2022 Level 2 Description: Configure OpenVPN to use TLS encryption for secure communication with CLIents and servers. Rationale: Audit: Remediation: In GUI \u2022 Open the pfSense web interface and navigate to VPN > OpenVPN.",
+        "source_pages": [
+          71
+        ],
+        "title": "Ensure that OpenVPN is configured to use TLS encryption for secure communications."
+      },
+      {
+        "additional_information": "",
+        "assessment_status": "MANUAL",
+        "audit": "",
+        "check_pattern": "",
+        "cis_controls": [],
+        "default_value": "",
+        "description": "This rule aims to prevent the use of weak cryptographic algorithms in OpenVPN, which could be exploited by attackers to compromise the confidentiality, integrity, and availability of the VPN traffic. Specifically, this rule requires that only strong and secure cryptographic ciphers and hashing algorithms are used in OpenVPN.",
+        "forbidden_text": "",
+        "impact": "Implementing this rule may impact the performance of the OpenVPN service, as strong cryptographic algorithms can be more computationally intensive than weaker ones. However, this impact can be minimized by selecting the appropriate cryptographic algorithms for the underlying hardware and network environment.",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Weak cryptographic algorithms are more susceptible to attacks such as brute-force attacks, known-plaintext attacks, and man-in-the-middle attacks. By ensuring that only strong cryptographic algorithms are used in OpenVPN, the VPN traffic will be better protected against unauthorized access and modification.",
+        "references": [],
+        "remediation": "",
+        "required_text": "",
+        "rule_id": "5.5.1",
+        "source_excerpt": "5.5.1 Ensure that OpenVPN use strong ciphers or hashing Profile Applicability: \u2022 Level 1 Description: This rule aims to prevent the use of weak cryptographic algorithms in OpenVPN, which could be exploited by attackers to compromise the confidentiality, integrity, and availability of the VPN traffic. Specifically, this rule requires that only strong and secure cryptographic ciphers and hashing algorithms are used in OpenVPN. Rationale: Weak cryptographic algorithms are more susceptible to attacks such as brute-force attacks, known-plaintext attacks, and man-in-the-middle attacks. By ensuring that only",
+        "source_pages": [
+          73
+        ],
+        "title": "Ensure that OpenVPN use strong ciphers or hashing algorithms"
+      },
+      {
+        "additional_information": "\u2022 https://docs.netgate.com/pfsense/en/latest/monitoring/logs/index.html \u2022 https://docs.rapid7.com/insightidr/pfsense-firewall/",
+        "assessment_status": "MANUAL",
+        "audit": "In GUI: - Navigate to Status > System Logs > Settings. - Check 'Enable Remote Logging' Options",
+        "check_pattern": "",
+        "cis_controls": [
+          "Controls",
+          "Version Control IG 1 IG 2 IG 3",
+          "v8"
+        ],
+        "default_value": "By default no external logging is defined.",
+        "description": "Syslog logging is a standard logging protocol that is widely supported. It is recommended for a level 1 deployment only, as syslog does not support encryption",
+        "forbidden_text": "",
+        "impact": "Failure to properly store and archive logs for critical infrastructure leaves an organization without the tools required to establish trends in events or activity, or to retrospectively analyze security or operational events beyond the log timespan stored on the firewall. Not having remote logs also puts many organizations outside of compliance with many regulatory frameworks.",
+        "profile": [
+          "\u2022 Level 1"
+        ],
+        "rationale": "Sending all system logs to a remote host is recommended to provide protected, long term storage and archiving. This also places a copy of the logs in a second location, in case the primary (on the firewall) logs are compromised. Storing logs on a remote host also allows for more flexible log searches and log processing, as well as many methods of triggering events or scripts based on specific log events or combinations of events. Finally, remote logging provides many organizations with the opportunity to combine logs from disparate infrastructure in a SIEM (Security Information and Event Management) system. Logging to an external system is also usually required by most regulatory frameworks.",
+        "references": [],
+        "remediation": "In GUI: - Navigate to Status > System Logs > Settings. - Configure 'Enable Remote Logging' Options",
+        "required_text": "",
+        "rule_id": "6.1",
+        "source_excerpt": "6.1 Ensure syslog is configured (Manual) Profile Applicability: \u2022 Level 1 Description: Syslog logging is a standard logging protocol that is widely supported. It is recommended for a level 1 deployment only, as syslog does not support encryption Rationale: Sending all system logs to a remote host is recommended to provide protected, long term storage and archiving. This also places a copy of the logs in a second location, in case the primary (on the firewall) logs are compromised. Storing logs on a remote host also allows for more flexible log searches and log processing, as well as many methods",
+        "source_pages": [
+          75,
+          76
+        ],
+        "title": "Ensure syslog is configured"
+      }
+    ],
+    "control_count": 33,
+    "metadata": {
+      "raw_text_length": 80021
+    }
   }
 ]

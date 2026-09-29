@@ -76,3 +76,9 @@ tests/                  automated tests
 Start with [`docs/PROTOTYPE_GUIDE.md`](docs/PROTOTYPE_GUIDE.md). It contains both a short explanation for quickly understanding the system and a detailed explanation for developers continuing the project.
 
 See [`docs/README.md`](docs/README.md) for the complete documentation index.
+
+## Multi-page UI
+
+Start the prototype and open `/login`. The prototype credentials are `admin` / `admin@123` and are hardcoded in `backend/app_factory.py` for demonstration only.
+
+The workflow is split into `/connection`, `/compliance`, `/assessment`, and `/remediation`. See `docs/UI_PAGES.md` for the page responsibilities and browser-state model.

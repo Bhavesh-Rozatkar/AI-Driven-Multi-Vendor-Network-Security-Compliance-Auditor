@@ -1,0 +1,15 @@
+<config>
+  <version>2.7.2-RELEASE</version>
+  <system>
+    <hostname>hexaminds-fw</hostname>
+    <domain>lab.local</domain>
+    <dnsserver>1.1.1.1</dnsserver>
+    <session_timeout>10</session_timeout>
+    <ssh><enable>1</enable><port>22</port></ssh>
+    <webgui><protocol>http</protocol></webgui>
+  </system>
+  <interfaces>
+    <lan><ipaddr>192.168.10.1</ipaddr><subnet>24</subnet></lan>
+    <wan><ipaddr>203.0.113.10</ipaddr><subnet>24</subnet></wan>
+  </interfaces>
+</config>

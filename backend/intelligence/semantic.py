@@ -28,6 +28,8 @@ def _extract_json(text: str) -> dict:
 def deterministic_vendor_detection(raw: str) -> dict:
     """Fast fallback vendor/OS detector. It is intentionally conservative."""
     text = raw.lower()
+    if "<config" in text and "<system>" in text and ("<webgui>" in text or "<ssh>" in text):
+        return {"vendor": "pfSense", "device_type": "Firewall", "os": "pfSense", "confidence": 0.99, "method": "deterministic"}
     if re.search(r"^\s*hostname\s+\S+", raw, re.M) and (
         "aaa new-model" in text or "ip ssh version 2" in text or "line vty" in text
     ):
@@ -123,3 +125,43 @@ def run_ai_semantic(client, raw: str, unknown_items: list[str], deterministic_de
             "vendor_detection": deterministic_detection,
             "mappings": [],
         }
+
+
+def run_ai_uncertain_review(client, raw: str, uncertain_controls: list[dict]) -> dict:
+    """Explain the seven intentionally uncertain controls without changing their status."""
+    if not uncertain_controls:
+        return {"enabled": False, "status": "NO_REVIEW", "items": []}
+    fallback = []
+    fallback_text = {
+        "2.1.1.1.3": "The configuration contains RSA key-generation evidence, but the supplied text alone does not expose the generated key modulus in a form this reviewer treats as authoritative.",
+        "2.1.1.2": "The configuration explicitly sets an SSH version. The control remains in review because SSH version semantics should be confirmed from the device's effective SSH configuration.",
+        "2.1.2": "The configuration contains a global CDP setting. The reviewer should confirm the effective global state rather than infer it from related interface configuration.",
+        "3.1.2": "Proxy ARP is an interface-level behavior. The configuration should be reviewed across all relevant interfaces before confirming the control.",
+        "3.1.4": "Unicast RPF depends on interface context and the selected verification mode. The reviewer should confirm the effective interface configuration.",
+        "3.2.1": "Private/reserved source filtering requires understanding the ACL entries and where the ACL is applied, not just the presence of an ACL.",
+        "3.2.2": "The inbound ACL control depends on identifying external interfaces and verifying the ACL direction and attachment point.",
+    }
+    for c in uncertain_controls:
+        rid=str(c.get("rule_id")); fallback.append({"rule_id":rid,"title":str(c.get("title","")),"interpretation":fallback_text.get(rid,"The available configuration requires additional semantic review."),"evidence":str(c.get("evidence", "")),"confidence":0.55,"recommendation":"Administrator verification required.","source":"rule-based fallback"})
+    if client is None:
+        return {"enabled":False,"status":"FALLBACK","method":"rule-based fallback","message":"AI is unavailable; review explanations are provided without changing the uncertain status.","items":fallback}
+    catalog=[{"rule_id":str(c.get("rule_id")),"title":str(c.get("title")),"expected_configuration":str(c.get("expected_configuration","")),"evidence":str(c.get("evidence",""))} for c in uncertain_controls]
+    prompt={"task":"Explain exactly seven uncertain Cisco CIS controls for an administrator review queue.","constraints":["Do not convert uncertain controls to PASS or FAIL.","Use only supplied configuration text and control definitions.","Explain what the configuration appears to mean, what evidence supports that interpretation, and what the administrator should verify.","Return compact JSON only."],"controls":catalog,"raw_configuration":raw[:12000],"schema":{"items":[{"rule_id":"string","interpretation":"string","evidence":"string","confidence":"0..1","recommendation":"string"}]}}
+    system="You are the semantic interpretation layer of a network compliance platform. The deterministic engine has deliberately marked these controls UNCERTAIN. Explain their likely meaning conservatively; never invent evidence and never override the UNCERTAIN status."
+    try:
+        data=_extract_json(client.generate_json_free(system,json.dumps(prompt),max_output_tokens=1800))
+        by_id={str(x.get("rule_id")):x for x in uncertain_controls}
+        out=[]
+        for item in data.get("items",[]) if isinstance(data.get("items",[]),list) else []:
+            if not isinstance(item,dict): continue
+            rid=str(item.get("rule_id",""));
+            if rid not in by_id: continue
+            try: conf=max(0.0,min(1.0,float(item.get("confidence",0))))
+            except Exception: conf=0.0
+            out.append({"rule_id":rid,"title":by_id[rid].get("title",""),"interpretation":str(item.get("interpretation","")),"evidence":str(item.get("evidence","")),"confidence":conf,"recommendation":str(item.get("recommendation","Administrator verification required.")),"source":"AI"})
+        # Preserve all seven even if the model omits one.
+        known={x["rule_id"] for x in out}
+        out.extend(x for x in fallback if x["rule_id"] not in known)
+        return {"enabled":True,"status":"AI_REVIEW_READY","method":f"Gemini {getattr(client,'last_model',getattr(client,'model','Flash'))}","message":"AI interpretations generated for administrator review. Uncertain status remains authoritative until verified.","items":out}
+    except Exception as exc:
+        return {"enabled":True,"status":"FALLBACK","method":"rule-based fallback","message":f"AI review unavailable; fallback explanations retained. ({type(exc).__name__}: {str(exc)[:240]})","items":fallback}

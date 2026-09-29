@@ -2,7 +2,13 @@ import json,re
 class RemediationAI:
     def __init__(self,client=None):self.client=client
     def generate(self,finding,device,current_config,control):
-        if not self.client:return {"status":"MANUAL_REVIEW","summary":"Remediation AI is unavailable. Execution is blocked.","commands":[],"warnings":["AI provider is not configured."],"confidence":0.0,"manual_review_required":True}
+        # Reviewed deterministic mappings remain available when an external AI
+        # provider is unavailable. AI is an enrichment layer, not a hard dependency.
+        reviewed=control.get("fix_commands") if isinstance(control,dict) else None
+        if isinstance(reviewed,list) and reviewed:
+            commands=[str(x).strip() for x in reviewed if str(x).strip()]
+            return {"status":"READY","summary":"Reviewed remediation mapping selected for this control.","commands":commands,"preconditions":["Device capability check must pass.","Safety validation must pass."],"warnings":["Deterministic reviewed mapping used because the control has an approved command path."],"confidence":0.95,"manual_review_required":False,"source":"reviewed-mapping"}
+        if not self.client:return {"status":"MANUAL_REVIEW","summary":"No sufficiently safe automated remediation path was established.","commands":[],"warnings":["AI provider is not configured and no reviewed command mapping exists."],"confidence":0.0,"manual_review_required":True}
         prompt={"task":"Generate a conservative pfSense remediation plan for one compliance finding.","rules":["Do not invent unsupported pfSense commands.","Never disable security controls as a shortcut.","If safe exact remediation cannot be established, return MANUAL_REVIEW with no commands.","Commands must be shell commands that can be validated before SSH execution."],"device":device,"finding":finding,"control":control,"current_config_excerpt":current_config[:12000]}
         try:
             text=self.client.generate_json_free("You are the remediation planning layer. Be conservative and return JSON only.",json.dumps(prompt),max_output_tokens=1600)

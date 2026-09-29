@@ -11,6 +11,94 @@ def _block(raw,start):
 def _timeout_ok(block):
  vals=re.findall(r"exec-timeout\s+(\d+)(?:\s+(\d+))?",block,re.I)
  return bool(vals) and all(int(m)<=10 for m,s in vals)
+# Seven controls are intentionally routed to semantic AI + administrator review.
+# They are the controls where syntax alone can be ambiguous or where context matters.
+AI_REVIEW_IDS = {
+    "2.1.1.1.3",  # RSA modulus / key evidence
+    "2.1.1.2",    # SSH version
+    "2.1.2",      # CDP global state
+    "3.1.2",      # proxy ARP across interfaces
+    "3.1.4",      # unicast RPF semantics
+    "3.2.1",      # private/reserved source filtering
+    "3.2.2",      # external-interface inbound ACL
+}
+
+def _line(raw, pattern):
+    return re.search(pattern, raw, re.I | re.M) is not None
+
+def _generic_reviewed_result(raw, c):
+    """Conservative deterministic checks for controls outside the seven AI-review controls.
+    This never replaces the seven semantic-review controls with a guessed PASS/FAIL.
+    """
+    rid=str(c.get("rule_id","")); title=str(c.get("title","")); expected=str(c.get("expected_configuration","")).lower()
+    low=raw.lower()
+    # Context-dependent protocol controls: N/A when the protocol is absent.
+    proto = None
+    for name in ("eigrp", "ospf", "bgp"):
+        if name in title.lower() or name in expected:
+            proto=name; break
+    if proto and proto not in low:
+        return _safe(c,"NOT_APPLICABLE",f"{proto.upper()} is not configured in the supplied configuration.")
+    if rid.startswith("1.5.") and rid not in {"1.5.1","1.5.2","1.5.3"} and "snmp-server" not in low:
+        return _safe(c,"NOT_APPLICABLE","SNMP is not configured in the supplied configuration.")
+    if rid in {"1.2.10","2.4.2","2.4.4"}:
+        if rid=="1.2.10" and not re.search(r"^ip http (server|secure-server)$",raw,re.I|re.M):
+            return _safe(c,"NOT_APPLICABLE","HTTP/HTTPS management is not enabled in the supplied configuration.")
+        if rid=="2.4.2" and not re.search(r"^aaa\s+",raw,re.I|re.M):
+            return _safe(c,"NOT_APPLICABLE","AAA is not configured in the supplied configuration.")
+        if rid=="2.4.4" and "tftp" not in low:
+            return _safe(c,"NOT_APPLICABLE","TFTP is not used in the supplied configuration.")
+    # Direct absence/presence controls.
+    if rid=="1.2.1":
+        users=re.findall(r"^username\s+\S+\s+.*$",raw,re.I|re.M)
+        ok=bool(users) and all(not re.search(r"\bprivilege\s+(?!1\b)\d+",u,re.I) for u in users)
+        return _safe(c,"PASS" if ok else "FAIL","All local users are privilege 1." if ok else "At least one local user is above privilege 1.","username privilege")
+    if rid=="1.2.4":
+        ok=bool(re.search(r"^ip access-list (standard|extended)\s+\S+|^access-list\s+\d+",raw,re.I|re.M)) and bool(re.search(r"access-class\s+\S+\s+in",raw,re.I))
+        return _safe(c,"PASS" if ok else "FAIL","A management ACL is present and applied to VTY lines." if ok else "A VTY management ACL is not evidenced.","ACL + access-class")
+    if rid=="1.5.4":
+        ok=not bool(re.search(r"^snmp-server community\s+\S+\s+rw\b",raw,re.I|re.M))
+        return _safe(c,"PASS" if ok else "FAIL","No read-write SNMP community is configured." if ok else "A read-write SNMP community is configured.","snmp-server community ... rw")
+    if rid in {"1.5.5","1.5.6"}:
+        communities=re.findall(r"^snmp-server community\s+\S+(?:\s+(?:ro|rw))?(?:\s+\S+)?",raw,re.I|re.M)
+        ok=not communities or all(len(x.split())>=5 for x in communities)
+        return _safe(c,"PASS" if ok else "FAIL","SNMP communities have ACL context." if ok else "An SNMP community lacks ACL evidence.","snmp-server community")
+    if rid=="1.5.10":
+        ok=bool(re.search(r"^snmp-server user\s+\S+\s+\S+\s+v3\s+auth\s+\S+\s+\S+\s+priv\s+(?:aes\s+128|aes\s+192|aes\s+256)",raw,re.I|re.M))
+        return _safe(c,"PASS" if ok else "FAIL","SNMPv3 privacy uses AES or stronger." if ok else "No AES-128-or-stronger SNMPv3 user evidence was found.","snmp-server user ... v3 ... priv aes")
+    if rid=="2.3.1.4":
+        servers=re.findall(r"^ntp server\s+\S+(.*)$",raw,re.I|re.M)
+        ok=bool(servers) and all(re.search(r"\bkey\s+\d+\b",x,re.I) for x in servers)
+        return _safe(c,"PASS" if ok else "FAIL","Every NTP server uses a key." if ok else "At least one NTP server lacks a key.","ntp server ... key")
+    if rid=="3.1.1":
+        ok=bool(re.search(r"^no ip source-route$",raw,re.I|re.M))
+        return _safe(c,"PASS" if ok else "FAIL","IP source routing is disabled." if ok else "IP source routing is enabled or not explicitly disabled.","no ip source-route")
+    if rid=="3.1.3":
+        tunnels=re.findall(r"^interface\s+Tunnel\S+",raw,re.I|re.M)
+        return _safe(c,"PASS" if not tunnels else "FAIL","No tunnel interfaces are configured." if not tunnels else "Tunnel interfaces are configured and require review.","interface Tunnel")
+    if rid.startswith("3.3.1."):
+        patterns={
+            "3.3.1.1":r"^key chain\s+\S+", "3.3.1.2":r"^\s+key\s+\d+", "3.3.1.3":r"^\s+key-string\s+\S+",
+            "3.3.1.4":r"address-family ipv4 autonomous-system\s+\d+", "3.3.1.5":r"af-interface default",
+            "3.3.1.6":r"authentication key-chain\s+\S+", "3.3.1.7":r"authentication mode md5",
+            "3.3.1.8":r"ip authentication key-chain eigrp", "3.3.1.9":r"ip authentication mode eigrp .* md5"
+        }
+        pat=patterns.get(rid,r"$^$" ); ok=bool(re.search(pat,raw,re.I|re.M))
+        return _safe(c,"PASS" if ok else "FAIL", "Required EIGRP authentication configuration is present." if ok else "Required EIGRP authentication configuration is missing.",pat)
+    if rid in {"3.3.2.1","3.3.2.2"}:
+        pat=r"area\s+\S+\s+authentication message-digest" if rid.endswith(".1") else r"ip ospf message-digest-key\s+\d+\s+md5"
+        ok=bool(re.search(pat,raw,re.I|re.M))
+        return _safe(c,"PASS" if ok else "FAIL","Required OSPF message-digest authentication is present." if ok else "Required OSPF message-digest authentication is missing.",pat)
+    if rid=="3.3.3.1":
+        ok=bool(re.search(r"^\s*neighbor\s+\S+\s+password\s+\S+",raw,re.I|re.M))
+        return _safe(c,"PASS" if ok else "FAIL","BGP neighbor password is configured." if ok else "BGP neighbor password is missing.","neighbor <IP> password")
+    # Generic reviewed benchmark text check for simple controls.
+    if expected.startswith("no "):
+        token=expected.strip()
+        ok=token in low
+        return _safe(c,"PASS" if ok else "FAIL",f"{token} is present." if ok else f"{token} is missing.",token)
+    return _safe(c,"FAIL","No deterministic evidence matched the reviewed control requirement.",expected)
+
 def evaluate_one(raw,c):
  rid=c["rule_id"]
  checks={
@@ -48,7 +136,9 @@ def evaluate_one(raw,c):
   ok,reason,evidence=checks[rid]
   if rid in {"1.1.5","1.2.9"} and not _has(raw,r"^ip http (server|secure-server)$"): return _safe(c,"NOT_APPLICABLE","HTTP/HTTPS management is not enabled in the supplied configuration.")
   return _safe(c,"PASS" if ok else "FAIL",reason if ok else f"Expected {c['expected_configuration']} was not found in the supplied configuration.",evidence)
- return _safe(c,"UNCERTAIN","This control is manual or requires evidence not safely inferable from the configuration alone.",c.get("audit_command",""))
+ if rid in AI_REVIEW_IDS:
+  return _safe(c,"UNCERTAIN","Configuration evidence requires semantic interpretation and administrator verification.",c.get("audit_command",c.get("expected_configuration","")))
+ return _generic_reviewed_result(raw,c)
 def evaluate_controls(normalized,controls,client=None,max_workers=1,raw_text=None): return [evaluate_one(raw_text or normalized.get("_raw_config",""),c) for c in controls]
 def summarize(results):
  counts={k:0 for k in ALLOWED}

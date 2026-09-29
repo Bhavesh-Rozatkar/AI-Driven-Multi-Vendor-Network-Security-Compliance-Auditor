@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connection · Network Compliance Console</title><link rel="stylesheet" href="/static/app.css"></head>
+<body><div class="page"><header class="topbar">
+  <div class="topbar-left">
+    <button class="menu-btn" aria-label="Menu">☰</button>
+    <div class="brand">
+      <div class="mark">NC</div>
+      <div><h1>Network Compliance Console</h1></div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="top-search"><span>⌕</span><input aria-label="Search" placeholder="Search..." /></div>
+    <button class="icon-btn" aria-label="Notifications">♧<span class="notif-dot"></span></button>
+    <div class="account"><span class="avatar">A</span><b data-user>admin</b><span class="chevron">⌄</span></div>
+    <div class="top-date"><b data-current-date></b><span data-current-time></span></div>
+    <button class="signout-btn" onclick="logout()">Sign out</button>
+  </div>
+</header><div class="shell"><aside class="sidebar">
+  <div class="side-title">WORKSPACE</div>
+  <nav class="nav">
+    <a data-page="dashboard" href="/assessment"><span class="nav-icon">▦</span><span>Dashboard</span></a>
+    <a data-page="connection" href="/connection"><span class="nav-icon">♆</span><span>Connection</span></a>
+    <a data-page="compliance" href="/compliance"><span class="nav-icon">▤</span><span>Compliance</span></a>
+    <a data-page="assessment" href="/assessment"><span class="nav-icon">▥</span><span>Assessment</span></a>
+    <a data-page="remediation" href="/remediation"><span class="nav-icon">⚒</span><span>Remediation</span></a>
+    <a href="/remediation"><span class="nav-icon">▧</span><span>Reports</span></a>
+    <a href="/remediation"><span class="nav-icon">◷</span><span>Audit History</span></a>
+    <a href="/connection"><span class="nav-icon">⚙</span><span>Settings</span></a>
+  </nav>
+</aside><main class="content"><div class="content-head"><div><h2>Device Connection</h2></div><span class="badge neutral">pfSense · SSH</span></div><div class="content-body"><div class="grid2"><section class="panel"><div class="panel-head"><div><h3>Device Credentials</h3></div></div><div class="panel-body"><div class="field-grid"><div class="field full"><label>Device / host</label><input id="host" placeholder="192.168.1.1" value="localhost"></div><div class="field"><label>SSH port</label><input id="port" type="number" value="22"></div><div class="field"><label>Username</label><input id="username" placeholder="admin" value="admin"></div><div class="field"><label>Password</label><input id="password" type="password" value="admin@123"></div><div class="field full"><label>Platform</label><input value="pfSense Firewall" disabled></div></div><div class="actions" style="margin-top:10px"><button class="primary" onclick="checkConnection()">Run capability check</button><button onclick="saveOnly()">Save target</button><button onclick="location.href='/assessment'">Continue to assessment</button></div><div class="notice" style="margin-top:10px">The capability check is designed to verify connectivity, configuration collection, and the permissions needed before any remediation is attempted.</div></div></section><section class="panel"><div class="panel-head"><div><h3>Connection Capabilities</h3></div></div><div class="panel-body" id="capability"><div class="empty">No capability check has been run.</div></div></section></div></div></main></div></div><script src="/static/app.js"></script><script>
+if(requireLogin()){loadDevice();}
+function saveOnly(){saveDevice();$('capability').innerHTML='<div class="notice success">Device details saved locally for this session.</div>'}
+async function checkConnection(){const d=saveDevice();const btn=document.querySelector('[onclick="checkConnection()"]');if(!d.host||!d.username||!d.password){$('capability').innerHTML='<div class="notice warning">Enter host, username and password first.</div>';return}setBusy(btn,true,'Checking…');$('capability').innerHTML='<div class="empty"><span class="spinner"></span> Connecting to pfSense and checking capabilities…</div>';const loader=showLoading('Checking device capabilities',['Testing SSH connectivity','Checking configuration access','Checking remediation permissions']);try{const r=await api('/devices/capability-check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});loader.next(2);$('capability').innerHTML=`<div class="status-line"><span class="dot ${r.ok?'':'red'}"></span><b>${r.ok?'Capability check passed':'Capability check failed'}</b></div><div class="kv" style="margin-top:10px"><div class="k">Host</div><div class="v">${esc(d.host)}</div><div class="k">Platform</div><div class="v">pfSense</div><div class="k">Configuration read</div><div class="v">${esc(r.configuration_read??r.can_read??'Not reported')}</div><div class="k">Configuration write</div><div class="v">${esc(r.configuration_write??r.can_write??'Not reported')}</div><div class="k">Details</div><div class="v">${esc(r.message||r.error||'Capability response received')}</div></div><pre>${escJson(r)}</pre>`}catch(e){$('capability').innerHTML='<div class="notice danger">'+esc(e.message)+'</div>'}finally{loader.hide();setBusy(btn,false)}}
+</script></body></html>

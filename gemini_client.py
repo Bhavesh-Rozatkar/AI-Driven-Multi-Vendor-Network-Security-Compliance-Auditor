@@ -8,8 +8,8 @@ import json, os, random, time, urllib.error, urllib.request
 
 DEFAULT_MODEL = "gemini-3.6-flash"
 FALLBACK_MODELS = ["gemini-3.7-flash", "gemini-3.5-flash"]
-MAX_RETRIES = max(1, int(os.getenv("GEMINI_MAX_RETRIES", "3")))
-REQUEST_TIMEOUT_SEC = max(15, int(os.getenv("GEMINI_TIMEOUT_SEC", "45")))
+MAX_RETRIES = max(0, int(os.getenv("GEMINI_MAX_RETRIES", "0")))
+REQUEST_TIMEOUT_SEC = max(5, int(os.getenv("GEMINI_TIMEOUT_SEC", "8")))
 
 class GeminiClient:
     def __init__(self, api_key=None, model=None):
