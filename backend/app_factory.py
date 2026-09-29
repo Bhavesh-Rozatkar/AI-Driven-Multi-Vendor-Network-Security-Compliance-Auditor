@@ -6,8 +6,10 @@ from backend.api.routes import bp
 from backend.device.adapters.pfsense.fixture import PfSenseFixtureAdapter
 
 # Local administrator credentials for this environment.
-APP_USERNAME = "admin"
-APP_PASSWORD = "admin@123"
+# Credentials are environment-configurable for hosted deployments.
+# Local defaults preserve the existing prototype login for development/demo use.
+APP_USERNAME = os.getenv("APP_USERNAME", "admin")
+APP_PASSWORD = os.getenv("APP_PASSWORD", "admin@123")
 
 PROTECTED_PAGES = {"connection", "compliance", "assessment", "remediation"}
 
@@ -26,7 +28,10 @@ def create_app():
         static_folder=str(static_dir),
         static_url_path="/static",
     )
-    app.secret_key = os.getenv("FLASK_SECRET_KEY", "local-secret-key-change-me")
+    secret_key = os.getenv("FLASK_SECRET_KEY")
+    if not secret_key and os.getenv("RENDER") == "true":
+        raise RuntimeError("FLASK_SECRET_KEY must be set in Render Environment Variables.")
+    app.secret_key = secret_key or "local-secret-key-change-me"
     CORS(app)
     app.register_blueprint(bp, url_prefix="/api")
     # Reset the local pfSense-compatible state when the application starts so each
@@ -48,6 +53,10 @@ def create_app():
     @app.get('/auth/status')
     def auth_status():
         return jsonify({'authenticated': bool(session.get('user')), 'username': session.get('user')})
+
+    @app.get('/api/health')
+    def health():
+        return jsonify({'status': 'ok', 'service': 'hexaminds'})
 
     @app.get('/')
     def index():
